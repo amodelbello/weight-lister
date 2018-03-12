@@ -2,14 +2,19 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { UserService } from './services/user.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
+    // TODO: Figure out how to stub or mock dependencies
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         HeaderComponent,
         FooterComponent,
       ],
+      providers: [
+        UserService
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -26,6 +31,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Main Content');
+    expect(compiled.querySelector('h1').textContent).toContain('WeightLister');
   }));
 });
