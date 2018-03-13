@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
 
-@Injectable()
-export class AuthService {
+export class StubAuthService extends AuthService {
 
   loggedIn: boolean = false;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   login() {
     this.loggedIn = true;
@@ -18,5 +19,4 @@ export class AuthService {
   isLoggedIn() {
     return this.loggedIn;
   }
-
 }

@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     // TODO: Figure out how to stub or mock dependencies
@@ -13,7 +13,7 @@ describe('AppComponent', () => {
         FooterComponent,
       ],
       providers: [
-        UserService
+        AuthService
       ]
     }).compileComponents();
   }));

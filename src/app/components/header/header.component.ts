@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -8,15 +8,28 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
+  @Input() loggedId: boolean;
 
   constructor(
-    private userService: AuthService,
-  ) { }
+    private authService: AuthService,
+  ) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.userService.isLoggedIn();
-    console.log(`isLoggedIn: ${this.isLoggedIn}`);
+    // this.logout();
+    this.login();
   }
 
+  login() {
+    this.authService.login();
+    this.loggedId = this.authService.isLoggedIn();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.loggedId = this.authService.isLoggedIn();
+  }
+
+  isLoggedIn() {
+    return this.loggedId;
+  }
 }
