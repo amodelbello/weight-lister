@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class UserService {
+export class AuthService {
 
   constructor() { }
+
+  isLoggedIn() {
+    return true;
+  }
 
 }

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { UserService } from './services/user.service';
   imports: [
     BrowserModule
   ],
-  providers: [UserService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
