@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './login/login.component';
 import { ExerciseService } from './services/exercise/exercise.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ExerciseService } from './services/exercise/exercise.service';
     NotFoundComponent,
     DashboardComponent,
     LoginComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

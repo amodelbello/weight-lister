@@ -6,7 +6,7 @@
       <th class="pb-3">Muscle Group</th>
       <th class="pb-3">Type</th>
       <th colspan="1" class="text-right">
-        <button class="btn btn-secondary btn-sm">Create New</button>
+        <button class="btn btn-dark btn-sm"><i class="fa fa-plus"></i> New</button>
       </th>
     </tr>
   </thead>
@@ -16,14 +16,13 @@
       <td>{{ exercise.muscleGroup }}</td>
       <td>{{ exercise.type }}</td>
       <td class="text-right">
-        <button class="btn btn-dark btn-sm">Edit</button>
-        <button class="btn btn-danger btn-sm">Delete</button>
+        <button class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i></button>
       </td>
     </tr>
   </tbody>
 </table>
 
 <ng-template #noExercises>
-<hr>
-<h5>No exercises to display</h5>
+  <app-spinner></app-spinner>
 </ng-template>
