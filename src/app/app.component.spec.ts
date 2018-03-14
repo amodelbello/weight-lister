@@ -1,19 +1,34 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ExercisesComponent } from './exercises/exercises/exercises.component';
+import { WorkoutsComponent } from './workouts/workouts/workouts.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
-    // TODO: Figure out how to stub or mock dependencies
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         HeaderComponent,
         FooterComponent,
+        DashboardComponent,
+        ExercisesComponent,
+        WorkoutsComponent,
+        NotFoundComponent,
+      ],
+      imports: [
+        AppRoutingModule,
       ],
       providers: [
-        AuthService
+        AuthService,
+        { provide: APP_BASE_HREF, useValue : '/' },
       ]
     }).compileComponents();
   }));
@@ -21,16 +36,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'WeightLister'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('WeightLister');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('WeightLister');
   }));
 });
