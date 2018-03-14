@@ -14,7 +14,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth/auth.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

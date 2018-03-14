@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,8 +18,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './login/login.component';
+import { ExerciseService } from './services/exercise/exercise.service';
 
 @NgModule({
   declarations: [
@@ -32,9 +37,12 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase, 'weightlister'),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     FlashMessagesModule.forRoot(),
   ],
-  providers: [AuthService],
+  providers: [AuthService, ExerciseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

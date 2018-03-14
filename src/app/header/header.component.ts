@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
@@ -10,6 +10,10 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class HeaderComponent implements OnInit {
 
+  isLoggedIn: boolean;
+  loggedInUser: string;
+  showRegister: boolean;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -17,12 +21,14 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.logout();
-    // this.authService.login();
-  }
-
-  isLoggedIn() {
-    return this.authService.isLoggedIn();
+    this.authService.getAuth().subscribe(auth => {
+      if(auth) {
+        this.isLoggedIn = true;
+        this.loggedInUser = auth.email;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
   }
 
   logout() {
