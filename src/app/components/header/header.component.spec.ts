@@ -30,25 +30,14 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show app links when logged in', () => {
-    component.login();
-    fixture.detectChanges();
+  it('should be able to tell whether or not user is logged in', () => {
+    let authService = TestBed.get(AuthService);
 
-    const siteLinks = el.querySelectorAll('ul li.nav-item a.nav-link');
-    expect(siteLinks[0].innerHTML).toContain('Workouts');
-    expect(siteLinks[1].innerHTML).toContain('Exercises');
+    authService.login();
+    expect(component.isLoggedIn()).toBe(true);
 
-    const accountLink = el.querySelector('div#account-links a.nav-link');
-    expect(accountLink.innerHTML).toContain('Account');
-  });
-
-  it('should show login and register links when not logged in', () => {
-    component.logout();
-    fixture.detectChanges();
-
-    const siteLinks = el.querySelectorAll('ul li.nav-item a.nav-link');
-    expect(siteLinks[0].innerHTML).toContain('Login');
-    expect(siteLinks[1].innerHTML).toContain('Register');
+    authService.logout();
+    expect(component.isLoggedIn()).toBe(false);
   });
 
 });
