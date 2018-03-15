@@ -21,10 +21,10 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.getAuth().subscribe(auth => {
-      if(auth) {
+    this.authService.getAuth().subscribe(user => {
+      if(user) {
         this.isLoggedIn = true;
-        this.loggedInUser = auth.email;
+        this.loggedInUser = user.email;
       } else {
         this.isLoggedIn = false;
       }

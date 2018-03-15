@@ -2,21 +2,21 @@ import { AuthService } from './auth.service';
 
 export class StubAuthService extends AuthService {
 
-  loggedIn: boolean = false;
+  // loggedIn: boolean = false;
 
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
-  login() {
-    this.loggedIn = true;
-  }
+  // login() {
+  //   this.loggedIn = true;
+  // }
 
-  logout() {
-    this.loggedIn = false;
-  }
+  // logout() {
+  //   this.loggedIn = false;
+  // }
 
-  isLoggedIn() {
-    return this.loggedIn;
-  }
+  // isLoggedIn() {
+  //   return this.loggedIn;
+  // }
 }

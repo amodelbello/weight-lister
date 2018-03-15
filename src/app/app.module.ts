@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './login/login.component';
 import { ExerciseService } from './services/exercise/exercise.service';
+import { UserService } from './services/user/user.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
@@ -44,7 +45,11 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AngularFireAuthModule,
     FlashMessagesModule.forRoot(),
   ],
-  providers: [AuthService, ExerciseService],
+  providers: [
+    AuthService, 
+    ExerciseService,
+    UserService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
