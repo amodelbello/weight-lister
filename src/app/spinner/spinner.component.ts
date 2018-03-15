@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
-  templateUrl: './spinner.component.html',
-  styleUrls: ['./spinner.component.scss']
+  template: `
+  <hr>
+    <div class="container">
+      <div class="col-1 mx-auto my-5">
+        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+      </div>
+    </div>
+  `
 })
-export class SpinnerComponent implements OnInit {
-
+export class SpinnerComponent {
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }

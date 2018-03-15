@@ -1,5 +1,5 @@
 <h1>Exercises</h1>
-<table class="table" *ngIf="exercises?.length > 0; else noExercises">
+<table class="table" *ngIf="exercises?.length > 0; else spinner">
   <thead>
     <tr>
       <th class="pb-3">Name</th>
@@ -23,6 +23,6 @@
   </tbody>
 </table>
 
-<ng-template #noExercises>
+<ng-template #spinner>
   <app-spinner></app-spinner>
 </ng-template>
