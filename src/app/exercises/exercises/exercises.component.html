@@ -6,7 +6,12 @@
       <th class="pb-3">Muscle Group</th>
       <th class="pb-3">Type</th>
       <th colspan="1" class="text-right">
-        <button class="btn btn-dark btn-sm"><i class="fa fa-plus"></i> New</button>
+        <button 
+          type="button" 
+          class="btn btn-dark btn-sm" 
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-plus"></i> New</button>
       </th>
     </tr>
   </thead>
@@ -16,8 +21,18 @@
       <td>{{ exercise.muscleGroup }}</td>
       <td>{{ exercise.type }}</td>
       <td class="text-right">
-        <button class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i></button>
-        <button class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i></button>
+        <button 
+          type="button" 
+          class="btn btn-secondary btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-edit"></i></button>
+        <button 
+          type="button" 
+          class="btn btn-danger btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-times-circle"></i></button>
       </td>
     </tr>
   </tbody>
@@ -26,3 +41,5 @@
 <ng-template #spinner>
   <app-spinner></app-spinner>
 </ng-template>
+
+<app-exercise-form></app-exercise-form>

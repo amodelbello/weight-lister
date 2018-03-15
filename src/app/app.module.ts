@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { ExerciseService } from './services/exercise/exercise.service';
 import { UserService } from './services/user/user.service';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     DashboardComponent,
     LoginComponent,
     SpinnerComponent,
+    ExerciseFormComponent,
   ],
   imports: [
     BrowserModule,
