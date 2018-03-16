@@ -1,5 +1,5 @@
 <h1>Exercises</h1>
-<table class="table" *ngIf="exercises?.length > 0; else spinner">
+<table class="table table-hover" *ngIf="exercises?.length > 0; else spinner">
   <thead>
     <tr>
       <th class="pb-3">Name</th>
@@ -17,7 +17,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let exercise of exercises">
+    <tr *ngFor="let exercise of exercises" class="exercise-row" (click)="editClick(exercise)" data-toggle="modal" data-target="#exerciseForm">
+    <!-- <tr *ngFor="let exercise of exercises" (click)="console.log('hey')"> -->
       <td>{{ exercise.name }}</td>
       <td>{{ exercise.muscleGroup }}</td>
       <td>{{ exercise.type }}</td>
