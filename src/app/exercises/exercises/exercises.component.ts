@@ -32,6 +32,7 @@ export class ExercisesComponent implements OnInit {
 
   addClick() {
     this.formType = FormType.add;
+    this.exercise = emptyExerciseObject();
   }
 
   editClick(exercise) {

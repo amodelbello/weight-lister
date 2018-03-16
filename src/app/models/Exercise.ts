@@ -3,7 +3,6 @@ export interface Exercise {
   name: string;
   muscleGroup: string;
   type: string;
-  sort?: number;
   isActive: boolean;
 }
 
@@ -13,7 +12,6 @@ export function emptyExerciseObject() {
     name: '',
     muscleGroup: '',
     type: '',
-    sort: null,
     isActive: false,
   }
 

@@ -3,6 +3,7 @@ import { FormType } from '../../models/FormType';
 import { ExerciseService } from '../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject  } from '../../models/Exercise';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-exercise-form',
@@ -16,44 +17,49 @@ export class ExerciseFormComponent implements OnInit {
   @ViewChild('exerciseForm') form: HTMLFormElement;
   @ViewChild('closeModel') closeButton: ElementRef;
 
+  exerciseForm: FormGroup;
+
   constructor(
     private exerciseService: ExerciseService,
     private flashMessage: FlashMessagesService,
-  ) { }
+    private formBuilder: FormBuilder,
+  ) { 
+    this.exerciseForm = this.formBuilder.group({
+      id: [''],
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      muscleGroup: ['', [Validators.required, Validators.minLength(2)]],
+      type: ['', [Validators.required, Validators.minLength(2)]],
+      isActive: [''],
+    });
+  }
 
   ngOnInit() {
   }
 
-  cancelClick() {
-    this.form.reset();
-    // this.exercise = emptyExerciseObject();
+  ngOnChanges() {
+    this.exerciseForm.setValue(this.exercise);
   }
 
-  onSubmit({value, valid}: {value: Exercise, valid: boolean}) {
-    if (valid) {
+  cancelClick() {
+    this.exerciseForm.reset();
+    this.exerciseForm.setValue(this.exercise);
+  }
 
-      switch(this.type) {
-        case FormType.add:
-          this.formSubmitAdd(value);
-          break;
+  onSubmit() {
 
-        case FormType.edit:
-          this.formSubmitEdit(value);
-          break;
+    let data = this.exerciseForm.value;
+    switch(this.type) {
+      case FormType.add:
+        this.formSubmitAdd(data);
+        break;
 
-        case FormType.delete:
-          this.formSubmitDelete(value);
-          break;
-      }
+      case FormType.edit:
+        this.formSubmitEdit(data);
+        break;
 
-
-      // Add id to client
-      // value.id = this.id;
-
-      // update client
-      // this.clientService.updateClient(value);
-
-      // this.router.navigate(['/client/' + this.id]);
+      case FormType.delete:
+        this.formSubmitRemove(data);
+        break;
     }
   }
 
@@ -61,20 +67,23 @@ export class ExerciseFormComponent implements OnInit {
     data.isActive = true;
     this.exerciseService.createExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
-      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-success', timeout: 4000 });
+      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: 4000 });
     });
   }
 
   private formSubmitEdit(data) {
-    console.log('Edit time!')
-    console.log(data);
-    this.closeButton.nativeElement.click();
+    this.exerciseService.updateExercise(data).subscribe(data => {
+      this.closeButton.nativeElement.click();
+      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: 4000 });
+    });
   }
 
-  private formSubmitDelete(data) {
-    console.log('Delete time!')
-    console.log(data);
-    this.closeButton.nativeElement.click();
+  private formSubmitRemove(data) {
+    data.isActive = false;
+    this.exerciseService.updateExercise(data).subscribe(data => {
+      this.closeButton.nativeElement.click();
+      this.flashMessage.show('Exercise Removed', { cssClass: 'alert-warning', timeout: 4000 });
+    });
   }
 
 }

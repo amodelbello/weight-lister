@@ -46,4 +46,12 @@ export class ExerciseService {
     });
   }
 
+  updateExercise(formData) {
+    return this.userService.getCurrentUser()
+    .map(user => {
+      this.exerciseDoc = this.afs.doc(`users/${user.id}/exercises/${formData.id}`);
+      this.exerciseDoc.update(formData);
+    });
+  }
+
 }
