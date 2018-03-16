@@ -1,20 +1,115 @@
-<!-- Modal -->
 <div class="modal fade" id="exerciseForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+
+  <!-- ADD or EDIT -->
+  <div *ngIf="type == 'ADD' || type == 'EDIT'" class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel">{{ type | lowercase }} Exercise</h5>
+        <button #closeModel (click)="cancelClick()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-dark btn-sm">Save changes</button>
-      </div>
+
+      <form #exerciseForm="ngForm" (ngSubmit)="onSubmit(exerciseForm)">
+        <input type="hidden" name="id" [(ngModel)]="exercise.id">
+        <div class="modal-body">
+
+          <!-- Exercise Name -->
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input 
+              type="text"
+              class="form-control"
+              name="name"
+              #exerciseName="ngModel"
+              [ngClass]="{'is-invalid':exerciseName.errors && exerciseName.touched}"
+              [(ngModel)]="exercise.name"
+              minlength="2"
+              required
+            >
+            <div [hidden]="!exerciseName.errors?.required" class="invalid-feedback">
+              Exercise name is required
+            </div>
+            <div [hidden]="!exerciseName.errors?.minlength" class="invalid-feedback">
+              Must be at least two characters
+            </div>
+          </div>
+
+          <!-- Muscle Group -->
+          <div class="form-group">
+            <label for="muscleGroup">Muscle Group</label>
+            <input 
+              type="text"
+              class="form-control"
+              name="muscleGroup"
+              #muscleGroup="ngModel"
+              [ngClass]="{'is-invalid':muscleGroup.errors && muscleGroup.touched}"
+              [(ngModel)]="exercise.muscleGroup"
+              minlength="2"
+              required
+            >
+            <div [hidden]="!muscleGroup.errors?.required" class="invalid-feedback">
+              Muscle Group is required
+            </div>
+            <div [hidden]="!muscleGroup.errors?.minlength" class="invalid-feedback">
+              Must be at least two characters
+            </div>
+          </div>
+
+          <!-- Exercise Type -->
+          <div class="form-group">
+            <label for="exerciseType">Exercise Type</label>
+            <input 
+              type="text"
+              class="form-control"
+              name="type"
+              #exerciseType="ngModel"
+              [ngClass]="{'is-invalid':exerciseType.errors && exerciseType.touched}"
+              [(ngModel)]="exercise.type"
+              minlength="2"
+              required
+            >
+            <div [hidden]="!exerciseType.errors?.required" class="invalid-feedback">
+              Type is required
+            </div>
+            <div [hidden]="!exerciseType.errors?.minlength" class="invalid-feedback">
+              Must be at least two characters
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button (click)="cancelClick()" type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">Cancel</button>
+          <input [disabled]="!exerciseForm.valid" type="submit" class="btn btn-dark btn-sm" value="Save">
+        </div>
+      </form>
     </div>
   </div>
+
+
+  <!-- DELETE -->
+  <div *ngIf="type == 'DELETE'" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Are you sure?</h5>
+        <button #closeModel type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form #exerciseForm="ngForm" (ngSubmit)="onSubmit(exerciseForm)">
+        <input type="hidden" name="id" [(ngModel)]="exercise.id">
+        <div class="modal-body">
+          You are about to permanently delete <em>{{ exercise.name }}</em>.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
 </div>

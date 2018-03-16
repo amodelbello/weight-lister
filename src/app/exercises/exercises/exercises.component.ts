@@ -4,6 +4,7 @@ import { Exercise, emptyExerciseObject } from '../../models/Exercise';
 
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/User';
+import { FormType } from '../../models/FormType';
 
 @Component({
   selector: 'app-exercises',
@@ -13,6 +14,8 @@ import { User } from '../../models/User';
 export class ExercisesComponent implements OnInit {
 
   exercises: Exercise[];
+  exercise: Exercise = emptyExerciseObject();
+  formType: FormType;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -22,8 +25,23 @@ export class ExercisesComponent implements OnInit {
   ngOnInit() {
     this.exerciseService.getExercises().subscribe(exercises => {
       this.exercises = exercises;
-      let emptyExercise = emptyExerciseObject();
     });
+
+    this.formType = FormType.add;
+  }
+
+  addClick() {
+    this.formType = FormType.add;
+  }
+
+  editClick(exercise) {
+    this.formType = FormType.edit;
+    this.exercise = exercise;
+  }
+
+  deleteClick(exercise) {
+    this.formType = FormType.delete;
+    this.exercise = exercise;
   }
 
 }

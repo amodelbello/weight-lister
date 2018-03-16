@@ -38,4 +38,12 @@ export class ExerciseService {
 
     return this.exercises;
   }
+
+  createExercise(formData) {
+    return this.userService.getCurrentUser()
+    .map(user => {
+      this.afs.collection(`users/${user.id}/exercises`).add(formData);
+    });
+  }
+
 }

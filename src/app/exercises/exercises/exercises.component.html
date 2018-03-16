@@ -7,6 +7,7 @@
       <th class="pb-3">Type</th>
       <th colspan="1" class="text-right">
         <button 
+          (click)="addClick()"
           type="button" 
           class="btn btn-dark btn-sm" 
           data-toggle="modal" 
@@ -22,12 +23,14 @@
       <td>{{ exercise.type }}</td>
       <td class="text-right">
         <button 
+          (click)="editClick(exercise)"
           type="button" 
           class="btn btn-secondary btn-sm"
           data-toggle="modal" 
           data-target="#exerciseForm"
         ><i class="fa fa-edit"></i></button>
         <button 
+          (click)="deleteClick(exercise)"
           type="button" 
           class="btn btn-danger btn-sm"
           data-toggle="modal" 
@@ -42,4 +45,4 @@
   <app-spinner></app-spinner>
 </ng-template>
 
-<app-exercise-form></app-exercise-form>
+<app-exercise-form [type]="formType" [exercise]="exercise"></app-exercise-form>
