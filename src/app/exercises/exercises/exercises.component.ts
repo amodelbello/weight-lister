@@ -14,6 +14,7 @@ import { OrderByDirection } from '@firebase/firestore-types';
 })
 export class ExercisesComponent implements OnInit {
 
+  isLoading: boolean = true;
   allExercises: Exercise[];
   exercises: Exercise[];
   sortField: string = 'name';
@@ -37,8 +38,10 @@ export class ExercisesComponent implements OnInit {
     this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
       this.allExercises = exercises;
       this.exercises = this.pagination(this.allExercises);
+      this.isLoading = false;
     });
 
+    this.isLoading = true;
     this.formType = FormType.add;
   }
   
