@@ -7,6 +7,10 @@ html {
       cursor: pointer;
     }
 
+    a.no-pointer {
+      cursor: default !important;
+    }
+
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 

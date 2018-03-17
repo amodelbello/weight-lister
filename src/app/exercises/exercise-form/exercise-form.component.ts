@@ -60,7 +60,12 @@ export class ExerciseFormComponent implements OnInit {
       case FormType.delete:
         this.formSubmitRemove(data);
         break;
+      
+      default:
+        break;
     }
+
+    this.exerciseForm.reset();
   }
 
   private formSubmitAdd(data) {

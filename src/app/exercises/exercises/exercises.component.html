@@ -1,63 +1,118 @@
-<h1>Exercises</h1>
-<table class="table table-hover" *ngIf="exercises?.length > 0; else spinner">
-  <thead>
-    <tr>
-      <th class="pb-3">
-        <a (click)="sortClick('name')">
-          Name
-          <i *ngIf="sortField == 'name' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
-          <i *ngIf="sortField == 'name' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+<div class="container">
+  <div class="row">
+  <div class="col-sm-8">
+    <h1>Exercises</h1>
+  </div>
+    <div class="col-sm-4">
+      <div class="dropdown show pull-right mt-3">
+        <a class="btn btn-sm text-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          page limit ({{ pageItemLimit }})
         </a>
-      </th>
-      <th class="pb-3">
-        <a (click)="sortClick('muscleGroup')">
-          Muscle Group
-          <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
-          <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" (click)="pageLimitClick(10)">10</a>
+          <a class="dropdown-item" (click)="pageLimitClick(15)">15</a>
+          <a class="dropdown-item" (click)="pageLimitClick(25)">25</a>
+          <a class="dropdown-item" (click)="pageLimitClick(50)">50</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="exercises?.length > 0; else spinner">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th class="pb-3">
+          <a (click)="sortClick('name')">
+            Name
+            <i *ngIf="sortField == 'name' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
+            <i *ngIf="sortField == 'name' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+          </a>
+        </th>
+        <th class="pb-3">
+          <a (click)="sortClick('muscleGroup')">
+            Muscle Group
+            <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
+            <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+          </a>
+        </th>
+        <th class="pb-3">
+          <a (click)="sortClick('type')">
+            Type
+            <i *ngIf="sortField == 'type' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
+            <i *ngIf="sortField == 'type' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+          </a>
+        </th>
+        <th colspan="1" class="text-right">
+          <button 
+            (click)="addClick()"
+            type="button" 
+            class="btn btn-outline-dark btn-sm" 
+            data-toggle="modal" 
+            data-target="#exerciseForm"
+          ><i class="fa fa-plus"></i> New</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exercise of exercises" class="exercise-row" (click)="editClick(exercise)" data-toggle="modal" data-target="#exerciseForm">
+        <td>{{ exercise.name }}</td>
+        <td>{{ exercise.muscleGroup }}</td>
+        <td>{{ exercise.type }}</td>
+        <td class="text-right">
+          <button 
+            (click)="editClick(exercise)"
+            type="button" 
+            class="btn btn-outline-dark btn-sm"
+            data-toggle="modal" 
+            data-target="#exerciseForm"
+          ><i class="fa fa-edit"></i></button>
+          <button 
+            (click)="deleteClick(exercise)"
+            type="button" 
+            class="btn btn-outline-danger btn-sm"
+            data-toggle="modal" 
+            data-target="#exerciseForm"
+          ><i class="fa fa-times-circle"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav *ngIf="arrayOfPages.length > 1" aria-label="Page navigation">
+    <ul class="pagination justify-content-center pb-5">
+      <li class="page-item" [ngClass]="{disabled: (currentPage === 1)}">
+        <a 
+          class="page-link"
+          [ngClass]="(currentPage === 1) ? 'no-pointer' : ''"
+          (click)="pageClick(currentPage - 1)"
+        >
+          Previous
         </a>
-      </th>
-      <th class="pb-3">
-        <a (click)="sortClick('type')">
-          Type
-          <i *ngIf="sortField == 'type' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
-          <i *ngIf="sortField == 'type' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+      </li>
+
+      <li *ngFor="let page of arrayOfPages" class="page-item">
+        <a 
+          class="page-link"
+          [ngClass]="(page === currentPage) ? 'bg-dark text-light no-pointer' : 'bg-light text-dark'"
+          (click)="pageClick(page)"
+        >
+          {{ page }}
+          <span *ngIf="page === currentPage" class="sr-only">(current)</span>
         </a>
-      </th>
-      <th colspan="1" class="text-right">
-        <button 
-          (click)="addClick()"
-          type="button" 
-          class="btn btn-outline-dark btn-sm" 
-          data-toggle="modal" 
-          data-target="#exerciseForm"
-        ><i class="fa fa-plus"></i> New</button>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let exercise of exercises" class="exercise-row" (click)="editClick(exercise)" data-toggle="modal" data-target="#exerciseForm">
-      <td>{{ exercise.name }}</td>
-      <td>{{ exercise.muscleGroup }}</td>
-      <td>{{ exercise.type }}</td>
-      <td class="text-right">
-        <button 
-          (click)="editClick(exercise)"
-          type="button" 
-          class="btn btn-outline-dark btn-sm"
-          data-toggle="modal" 
-          data-target="#exerciseForm"
-        ><i class="fa fa-edit"></i></button>
-        <button 
-          (click)="deleteClick(exercise)"
-          type="button" 
-          class="btn btn-outline-danger btn-sm"
-          data-toggle="modal" 
-          data-target="#exerciseForm"
-        ><i class="fa fa-times-circle"></i></button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </li>
+
+      <li class="page-item" [ngClass]="{disabled: (currentPage === numberOfPages)}">
+          <a 
+            class="page-link"
+            [ngClass]="(currentPage === numberOfPages) ? 'no-pointer' : ''"
+            (click)="pageClick(currentPage + 1)"
+          >
+            Next
+          </a>
+        </li>
+    </ul>
+  </nav>
+</div>
 
 <ng-template #spinner>
   <app-spinner></app-spinner>
