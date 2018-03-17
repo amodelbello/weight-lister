@@ -3,7 +3,10 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+import * as common from './environment.common';
 export const environment = {
+  ...common.commonEnvironment,
+
   production: false,
   firebase: {
     apiKey: "AIzaSyB6WXogbRd6Q7I9cU45n6f9ah05hAWUXJc",

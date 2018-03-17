@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    // this.flashMessage.show('You are now logged out', { cssClass: 'alert-info', timeout: 4000 });
+    // this.flashMessage.show('You are now logged out', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
     this.router.navigate(['/login']);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { FormType } from '../../models/FormType';
 import { ExerciseService } from '../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject  } from '../../models/Exercise';
@@ -72,14 +73,14 @@ export class ExerciseFormComponent implements OnInit {
     data.isActive = true;
     this.exerciseService.createExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
-      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: 4000 });
+      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
     });
   }
 
   private formSubmitEdit(data) {
     this.exerciseService.updateExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
-      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: 4000 });
+      this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
     });
   }
 
@@ -87,7 +88,7 @@ export class ExerciseFormComponent implements OnInit {
     data.isActive = false;
     this.exerciseService.updateExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
-      this.flashMessage.show('Exercise Removed', { cssClass: 'alert-warning', timeout: 4000 });
+      this.flashMessage.show('Exercise Removed', { cssClass: 'alert-warning', timeout: environment.flashMessageDuration });
     });
   }
 
