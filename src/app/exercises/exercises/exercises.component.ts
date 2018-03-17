@@ -20,7 +20,7 @@ export class ExercisesComponent implements OnInit {
   sortField: string = 'name';
   sortDirection: OrderByDirection = 'asc';
   currentPage: number = 1;
-  pageItemLimit: number = 10;
+  pageItemLimit: number = this.getPageLimit();
   numberOfPages: number = 0;
   arrayOfPages: Array<number>;
   totalNumberOfExercises: number = 0;
@@ -67,8 +67,17 @@ export class ExercisesComponent implements OnInit {
     this.exercises = this.pagination(this.allExercises);
   }
 
+  getPageLimit() {
+    let limit = sessionStorage.getItem('exercisePageItemLimit');
+    if (limit != null && limit != '') {
+      return parseInt(limit);
+    }
+    return 10;
+  }
+
   pageLimitClick(limit: number) {
     this.pageItemLimit = limit;
+    sessionStorage.setItem('exercisePageItemLimit', limit.toString());
     this.currentPage = 1;
     this.exercises = this.pagination(this.allExercises);
   }
