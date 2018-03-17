@@ -35,6 +35,10 @@ export class ExercisesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadExercises();
+  }
+  
+  loadExercises() {
     this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
       this.allExercises = exercises;
       this.exercises = this.pagination(this.allExercises);
@@ -44,13 +48,13 @@ export class ExercisesComponent implements OnInit {
     this.isLoading = true;
     this.formType = FormType.add;
   }
-  
+
   private pagination(exercises: Exercise[]): Exercise[] {
     this.totalNumberOfExercises = exercises.length;
     this.numberOfPages          = Math.ceil((this.totalNumberOfExercises / this.pageItemLimit));
     this.arrayOfPages           = Array.from(Array(this.numberOfPages),(x,i)=>i + 1)
-    let start: number           = this.currentPage === 1 ? 1 : ((this.currentPage -1) * this.pageItemLimit);
-    let end: number             = start + this.pageItemLimit;
+    let start: number           = this.currentPage === 1 ? 0 : ((this.currentPage -1) * this.pageItemLimit);
+    let end: number             = start + (this.pageItemLimit + 1);
 
     return exercises.slice(start, end);
   }

@@ -1,7 +1,7 @@
 <div class="modal fade" id="exerciseForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
   <!-- ADD or EDIT -->
-  <div *ngIf="type == 'ADD' || type == 'EDIT'" class="modal-dialog" role="document">
+  <div *ngIf="type === 'ADD' || type === 'EDIT'" class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{ type | lowercase }} Exercise</h5>
@@ -83,7 +83,7 @@
 
 
   <!-- DELETE -->
-  <div *ngIf="type == 'DELETE'" class="modal-dialog" role="document">
+  <div *ngIf="type === 'DELETE'" class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-danger" id="exampleModalLabel">Are you sure?</h5>

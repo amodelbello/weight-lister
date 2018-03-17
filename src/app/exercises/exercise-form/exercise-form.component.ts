@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormType } from '../../models/FormType';
 import { ExerciseService } from '../../services/exercise/exercise.service';
@@ -15,6 +15,7 @@ export class ExerciseFormComponent implements OnInit {
 
   @Input() type: FormType;
   @Input() exercise: Exercise = emptyExerciseObject();
+  @Output() onSave: EventEmitter<null> = new EventEmitter<null>();
   @ViewChild('exerciseForm') form: HTMLFormElement;
   @ViewChild('closeModel') closeButton: ElementRef;
 
@@ -66,6 +67,7 @@ export class ExerciseFormComponent implements OnInit {
         break;
     }
 
+    this.onSave.emit();
     this.exerciseForm.reset();
   }
 
