@@ -2,9 +2,27 @@
 <table class="table table-hover" *ngIf="exercises?.length > 0; else spinner">
   <thead>
     <tr>
-      <th class="pb-3">Name</th>
-      <th class="pb-3">Muscle Group</th>
-      <th class="pb-3">Type</th>
+      <th class="pb-3">
+        <a (click)="sortClick('name')">
+          Name
+          <i *ngIf="sortField == 'name' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
+          <i *ngIf="sortField == 'name' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+        </a>
+      </th>
+      <th class="pb-3">
+        <a (click)="sortClick('muscleGroup')">
+          Muscle Group
+          <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
+          <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+        </a>
+      </th>
+      <th class="pb-3">
+        <a (click)="sortClick('type')">
+          Type
+          <i *ngIf="sortField == 'type' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
+          <i *ngIf="sortField == 'type' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
+        </a>
+      </th>
       <th colspan="1" class="text-right">
         <button 
           (click)="addClick()"
@@ -18,7 +36,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let exercise of exercises" class="exercise-row" (click)="editClick(exercise)" data-toggle="modal" data-target="#exerciseForm">
-    <!-- <tr *ngFor="let exercise of exercises" (click)="console.log('hey')"> -->
       <td>{{ exercise.name }}</td>
       <td>{{ exercise.muscleGroup }}</td>
       <td>{{ exercise.type }}</td>

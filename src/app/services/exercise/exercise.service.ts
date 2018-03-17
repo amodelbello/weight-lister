@@ -6,6 +6,7 @@ import 'rxjs/add/operator/mergeMap';
 import { Exercise } from '../../models/Exercise';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
+import { OrderByDirection } from '@firebase/firestore-types';
 
 @Injectable()
 export class ExerciseService {
@@ -20,11 +21,11 @@ export class ExerciseService {
     private userService: UserService,
   ) { }
 
-  getExercises(): Observable<Exercise[]> {
+  getExercises(sortField: string = 'name', sortDirection: OrderByDirection = 'asc'): Observable<Exercise[]> {
     this.exercises = this.userService.getCurrentUser()
     .flatMap(user => {
       return this.afs.collection(`users/${user.id}/exercises`, ref => ref
-        .orderBy('name', 'asc')
+        .orderBy(sortField, sortDirection)
         .where('isActive', '==', true))
         .snapshotChanges()
         .map(changes => {
