@@ -24,6 +24,7 @@ import { ExerciseService } from './services/exercise/exercise.service';
 import { UserService } from './services/user/user.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.component';
+import { TitleCasePipe } from './pipes/title-case.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.c
     LoginComponent,
     SpinnerComponent,
     ExerciseFormComponent,
+    TitleCasePipe,
   ],
   imports: [
     BrowserModule,

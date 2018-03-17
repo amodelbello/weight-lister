@@ -5,6 +5,7 @@ import { ExerciseService } from '../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject  } from '../../models/Exercise';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TitleCasePipe } from '../../pipes/title-case.pipe';
 
 @Component({
   selector: 'app-exercise-form',
