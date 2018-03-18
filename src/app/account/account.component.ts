@@ -15,6 +15,7 @@ export class AccountComponent implements OnInit {
 
   authUser: AuthUser = emptyAuthUserObject();
   user: User = emptyUserObject();
+  userExists: boolean = true;
 
   constructor(
     private router: Router,
@@ -29,7 +30,6 @@ export class AccountComponent implements OnInit {
     this.authService.getAuth().subscribe(auth => {
       this.authUser.uid = auth.uid;
       this.authUser.email = auth.email;
-      console.log(this.authUser);
     });
 
     // Get user
@@ -37,6 +37,8 @@ export class AccountComponent implements OnInit {
       if (user !== null) {
         this.user.firstName = user.firstName;
         this.user.lastName = user.lastName;
+      } else {
+        this.userExists = false;
       }
     });
   }
@@ -79,6 +81,10 @@ export class AccountComponent implements OnInit {
     this.userService.createUser(formData)
     .then(() => {
       this.flashMessage.show('User Updated', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
+      this.router.navigate(['/']);
+    })
+    .catch(e => {
+      throw e;
     });
   }
 

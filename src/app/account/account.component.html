@@ -1,3 +1,4 @@
+<div *ngIf="!userExists" class="alert alert-warning">Please complete registration before proceeding.</div>
 <div class="card">
   <div class="card-header">
     <h5>My Account</h5>
@@ -47,6 +48,7 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input 
+          disabled
           type="text"
           class="form-control"
           name="email"
