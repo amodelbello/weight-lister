@@ -26,6 +26,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
 import { PaginationService } from './services/pagination/pagination.service';
+import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PaginationService } from './services/pagination/pagination.service';
     SpinnerComponent,
     ExerciseFormComponent,
     TitleCasePipe,
+    NumberToArrayPipe,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject } from '../../models/Exercise';
-
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/User';
 import { FormType } from '../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
 import { PaginationService } from '../../services/pagination/pagination.service';
+import { NumberToArrayPipe } from '../../pipes/number-to-array.pipe';
 
 @Component({
   selector: 'app-exercises',
@@ -24,7 +24,6 @@ export class ExercisesComponent implements OnInit {
   currentPage: number = 1;
   pageItemLimit: number = this.getPageLimit();
   numberOfPages: number = 0;
-  arrayOfPages: Array<number>;
 
   // Exercise currently being edited by modal form
   exercise: Exercise = emptyExerciseObject();
@@ -62,7 +61,6 @@ export class ExercisesComponent implements OnInit {
 
   private setDataFromPaginationService(): void {
     this.numberOfPages = this.paginationService.getNumberOfPages(this.getPaginationArguments());
-    this.arrayOfPages = this.paginationService.convertNumberToArray(this.numberOfPages);
     this.exercises = this.paginationService.getPage(this.getPaginationArguments());
   }
 
