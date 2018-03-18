@@ -1,7 +1,6 @@
 /*
 Useful for mimicing for loop functionality in templates when you want 
-to loop a given number of times but dont' actually have an array to loop
-over.
+to loop a given number of times but don't actually have an array to loop over.
 e.g.
 <li *ngFor="let page of (numberOfPages | numberToArray)" class="page-item">
 */
