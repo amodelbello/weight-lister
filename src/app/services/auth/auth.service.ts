@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/observable';
 @Injectable()
 export class AuthService {
 
+  // TODO: I think I can lose this property... need to test though
   loggedIn: boolean = false;
 
   constructor(
@@ -31,8 +32,16 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
+  // TODO: I think I can lose this method... need to test though
   isLoggedIn() {
     return this.loggedIn;
+  }
+
+  // TODO: Make this work
+  updateAuthUser(formData) {
+    console.log(formData);
+    let test = this.afAuth.auth.currentUser.updateEmail(formData.email);
+    return test;
   }
 
 }

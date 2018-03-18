@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
 import { LoginComponent } from './login/login.component';
+import { AccountComponent } from './account/account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ExercisesComponent } from './exercises/exercises/exercises.component';
 import { WorkoutsComponent } from './workouts/workouts/workouts.component';
@@ -11,6 +12,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'exercises', component: ExercisesComponent, canActivate: [AuthGuard] },
   { path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard] },

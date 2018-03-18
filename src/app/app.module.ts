@@ -27,6 +27,7 @@ import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.c
 import { TitleCasePipe } from './pipes/title-case.pipe';
 import { PaginationService } from './services/pagination/pagination.service';
 import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
+import { AccountComponent } from './/account/account.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
     ExerciseFormComponent,
     TitleCasePipe,
     NumberToArrayPipe,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

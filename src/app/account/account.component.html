@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="card-header">
+    <h5>My Account</h5>
+  </div>
+  <div class="card-body">
+    <form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input 
+          type="text"
+          class="form-control"
+          name="firstName"
+          autocomplete="given-name"
+          #userFirstName="ngModel"
+          [ngClass]="{'is-invalid':userFirstName.errors && userFirstName.touched}"
+          [(ngModel)]="user.firstName"
+          minlength="2"
+          required
+        >
+        <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">
+          First name is required
+        </div>
+        <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">
+          Must be at least two characters
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input 
+          type="text"
+          class="form-control"
+          name="lastName"
+          autocomplete="family-name"
+          #userLastName="ngModel"
+          [ngClass]="{'is-invalid':userLastName.errors && userLastName.touched}"
+          [(ngModel)]="user.lastName"
+          minlength="2"
+          required
+        >
+        <div [hidden]="!userLastName.errors?.required" class="invalid-feedback">
+          Last name is required
+        </div>
+        <div [hidden]="!userLastName.errors?.minlength" class="invalid-feedback">
+          Must be at least two characters
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="text"
+          class="form-control"
+          name="email"
+          autocomplete="email"
+          #authEmail="ngModel"
+          [ngClass]="{'is-invalid':authEmail.errors && authEmail.touched}"
+          [(ngModel)]="authUser.email"
+          pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+          required
+        >
+        <div [hidden]="!authEmail.errors?.required" class="invalid-feedback">
+          Email is required
+        </div>
+        <div [hidden]="!authEmail.errors?.pattern" class="invalid-feedback">
+          Email is not valid
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password"
+          class="form-control"
+          name="password"
+          autocomplete="current-password"
+          placeholder="(new password)"
+          #authPassword="ngModel"
+          [ngClass]="{'is-invalid':authPassword.errors && authPassword.touched}"
+          [(ngModel)]="authUser.password"
+          minlength="6"
+          required
+        >
+        <div [hidden]="!authPassword.errors?.required" class="invalid-feedback">
+          Password is required
+        </div>
+        <div [hidden]="!authPassword.errors?.minlength" class="invalid-feedback">
+          Must be at least 6 characters
+        </div>
+      </div> -->
+      <input [disabled]="!accountForm.valid" type="submit" value="Save" class="btn btn-dark pull-right">
+    </form>
+  </div>
+</div>

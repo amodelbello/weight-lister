@@ -36,4 +36,22 @@ export class UserService {
 
     return this.user;
   }
+
+  createUser(formData) {
+    const newUser: User = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      isActive: true,
+    }
+    
+    return this.afs.collection(`users/`).doc(formData.id).set(newUser);
+  }
+
+  updateUser(formData) {
+    return this.authService.getAuth()
+    .map(user => {
+      this.userDocument = this.afs.doc<User>(`users/${user.uid}`);
+      this.userDocument.update(formData);
+    });
+  }
 }
