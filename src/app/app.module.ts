@@ -25,6 +25,7 @@ import { UserService } from './services/user/user.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
+import { PaginationService } from './services/pagination/pagination.service';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { TitleCasePipe } from './pipes/title-case.pipe';
     AuthService, 
     ExerciseService,
     UserService,
+    PaginationService,
   ],
   bootstrap: [AppComponent]
 })

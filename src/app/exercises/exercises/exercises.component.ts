@@ -6,6 +6,7 @@ import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/User';
 import { FormType } from '../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
+import { PaginationService } from '../../services/pagination/pagination.service';
 
 @Component({
   selector: 'app-exercises',
@@ -17,21 +18,22 @@ export class ExercisesComponent implements OnInit {
   isLoading: boolean = true;
   allExercises: Exercise[];
   exercises: Exercise[];
+
   sortField: string = 'name';
   sortDirection: OrderByDirection = 'asc';
   currentPage: number = 1;
   pageItemLimit: number = this.getPageLimit();
   numberOfPages: number = 0;
   arrayOfPages: Array<number>;
-  totalNumberOfExercises: number = 0;
 
-  // Current exercise being edited via modal
+  // Exercise currently being edited by modal form
   exercise: Exercise = emptyExerciseObject();
   formType: FormType;
 
   constructor(
     private exerciseService: ExerciseService,
     private userService: UserService,
+    private paginationService: PaginationService,
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class ExercisesComponent implements OnInit {
   loadExercises() {
     this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
       this.allExercises = exercises;
-      this.exercises = this.pagination(this.allExercises);
+      this.setDataFromPaginationService();
       this.isLoading = false;
     });
 
@@ -49,14 +51,19 @@ export class ExercisesComponent implements OnInit {
     this.formType = FormType.add;
   }
 
-  private pagination(exercises: Exercise[]): Exercise[] {
-    this.totalNumberOfExercises = exercises.length;
-    this.numberOfPages          = Math.ceil((this.totalNumberOfExercises / this.pageItemLimit));
-    this.arrayOfPages           = Array.from(Array(this.numberOfPages),(x,i)=>i + 1)
-    let start: number           = this.currentPage === 1 ? 0 : ((this.currentPage -1) * this.pageItemLimit);
-    let end: number             = start + (this.pageItemLimit + 1);
+  private getPaginationArguments(): Object {
+    return {
+      allItems: this.allExercises,
+      numberOfPages: this.numberOfPages,
+      pageItemLimit: this.getPageLimit(),
+      currentPage: this.currentPage,
+    }
+  }
 
-    return exercises.slice(start, end);
+  private setDataFromPaginationService(): void {
+    this.numberOfPages = this.paginationService.getNumberOfPages(this.getPaginationArguments());
+    this.arrayOfPages = this.paginationService.convertNumberToArray(this.numberOfPages);
+    this.exercises = this.paginationService.getPage(this.getPaginationArguments());
   }
 
   pageClick(page: number) {
@@ -64,7 +71,7 @@ export class ExercisesComponent implements OnInit {
     if (page > this.numberOfPages) page = this.numberOfPages;
 
     this.currentPage = page;
-    this.exercises = this.pagination(this.allExercises);
+    this.setDataFromPaginationService();
   }
 
   getPageLimit() {
@@ -79,7 +86,7 @@ export class ExercisesComponent implements OnInit {
     this.pageItemLimit = limit;
     sessionStorage.setItem('exercisePageItemLimit', limit.toString());
     this.currentPage = 1;
-    this.exercises = this.pagination(this.allExercises);
+    this.setDataFromPaginationService();
   }
 
   sortClick(field) {
@@ -87,7 +94,7 @@ export class ExercisesComponent implements OnInit {
     this.sortField = field;
     this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
       this.allExercises = exercises;
-      this.exercises = this.pagination(this.allExercises);
+      this.setDataFromPaginationService();
     });
   }
 
