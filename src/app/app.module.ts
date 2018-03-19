@@ -30,6 +30,7 @@ import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
 import { AccountComponent } from './components/account/account.component';
 import { PaginationControlsComponent } from './components/table/pagination-controls/pagination-controls.component';
 import { PageItemLimitComponent } from './components/table/page-item-limit/page-item-limit.component';
+import { ColumnHeaderComponent } from './components/table/column-header/column-header.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PageItemLimitComponent } from './components/table/page-item-limit/page-
     AccountComponent,
     PaginationControlsComponent,
     PageItemLimitComponent,
+    ColumnHeaderComponent,
   ],
   imports: [
     BrowserModule,

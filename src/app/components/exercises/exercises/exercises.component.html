@@ -30,25 +30,34 @@
     <thead>
       <tr>
         <th class="pb-3">
-          <a (click)="sortClick('name')">
-            Name
-            <i *ngIf="sortField == 'name' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
-            <i *ngIf="sortField == 'name' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
-          </a>
+          <app-column-header
+            [label]="'Name'"
+            [sortField]="'name'"
+            [activeSortField]="sortField"
+            [activeSortDirection]="sortDirection"
+            (sortChangeEvent)="changeSort($event)"
+            class="pb-3"
+          ></app-column-header>
         </th>
         <th class="pb-3">
-          <a (click)="sortClick('muscleGroup')">
-            Muscle Group
-            <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
-            <i *ngIf="sortField == 'muscleGroup' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
-          </a>
+          <app-column-header
+            [label]="'Muscle Group'"
+            [sortField]="'muscleGroup'"
+            [activeSortField]="sortField"
+            [activeSortDirection]="sortDirection"
+            (sortChangeEvent)="changeSort($event)"
+            class="pb-3"
+          ></app-column-header>
         </th>
         <th class="pb-3">
-          <a (click)="sortClick('type')">
-            Type
-            <i *ngIf="sortField == 'type' && sortDirection == 'asc'" class="fa fa-caret-up"></i>
-            <i *ngIf="sortField == 'type' && sortDirection == 'desc'" class="fa fa-caret-down"></i>
-          </a>
+          <app-column-header
+            [label]="'Type'"
+            [sortField]="'type'"
+            [activeSortField]="sortField"
+            [activeSortDirection]="sortDirection"
+            (sortChangeEvent)="changeSort($event)"
+            class="pb-3"
+          ></app-column-header>
         </th>
         <th colspan="1" class="text-right">
           <button 

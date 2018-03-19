@@ -87,7 +87,7 @@ export class ExercisesComponent implements OnInit {
     this.setDataFromPaginationService();
   }
 
-  sortClick(field) {
+  changeSort(field) {
     this.sortDirection = this.determineSortDirection(field);
     this.sortField = field;
     this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
