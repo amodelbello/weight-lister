@@ -28,7 +28,7 @@ import { TitleCasePipe } from './pipes/title-case.pipe';
 import { PaginationService } from './services/pagination/pagination.service';
 import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
 import { AccountComponent } from './components/account/account.component';
-import { PaginationControlsComponent } from './components/pagination-controls/pagination-controls.component';
+import { PaginationControlsComponent } from './components/table/pagination-controls/pagination-controls.component';
 
 @NgModule({
   declarations: [
