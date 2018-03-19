@@ -74,25 +74,27 @@ export class ExerciseFormComponent implements OnInit {
 
   private formSubmitAdd(data) {
     data.isActive = true;
-    this.exerciseService.createExercise(data).subscribe(data => {
+    const addObservable = this.exerciseService.createExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
       this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
+      addObservable.unsubscribe();
     });
   }
 
   private formSubmitEdit(data) {
-    this.exerciseService.updateExercise(data).subscribe(data => {
+    const editObservable = this.exerciseService.updateExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
       this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
+      editObservable.unsubscribe();
     });
   }
 
   private formSubmitRemove(data) {
     data.isActive = false;
-    this.exerciseService.updateExercise(data).subscribe(data => {
+    const removeObservable = this.exerciseService.updateExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
       this.flashMessage.show('Exercise Removed', { cssClass: 'alert-warning', timeout: environment.flashMessageDuration });
+      removeObservable.unsubscribe();
     });
   }
-
 }
