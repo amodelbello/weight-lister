@@ -16,7 +16,7 @@ export class ExerciseFormComponent implements OnInit {
 
   @Input() type: FormType;
   @Input() exercise: Exercise = emptyExerciseObject();
-  @Output() onSave: EventEmitter<null> = new EventEmitter<null>();
+  @Output() saveEvent: EventEmitter<null> = new EventEmitter<null>();
   @ViewChild('exerciseForm') form: HTMLFormElement;
   @ViewChild('closeModel') closeButton: ElementRef;
 
@@ -68,7 +68,7 @@ export class ExerciseFormComponent implements OnInit {
         break;
     }
 
-    this.onSave.emit();
+    this.saveEvent.emit();
     this.exerciseForm.reset();
   }
 

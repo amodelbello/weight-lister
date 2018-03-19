@@ -64,7 +64,7 @@ export class ExercisesComponent implements OnInit {
     this.exercises = this.paginationService.getPage(this.getPaginationArguments());
   }
 
-  pageClick(page: number) {
+  changePage(page: number) {
     if (page < 1) page = 1;
     if (page > this.numberOfPages) page = this.numberOfPages;
 
