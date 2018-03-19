@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { FormType } from '../../models/FormType';
-import { ExerciseService } from '../../services/exercise/exercise.service';
-import { Exercise, emptyExerciseObject  } from '../../models/Exercise';
+import { environment } from '../../../../environments/environment';
+import { FormType } from '../../../models/FormType';
+import { ExerciseService } from '../../../services/exercise/exercise.service';
+import { Exercise, emptyExerciseObject  } from '../../../models/Exercise';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TitleCasePipe } from '../../pipes/title-case.pipe';
+import { TitleCasePipe } from '../../../pipes/title-case.pipe';
 
 @Component({
   selector: 'app-exercise-form',

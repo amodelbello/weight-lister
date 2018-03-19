@@ -4,12 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 
-import { LoginComponent } from './login/login.component';
-import { AccountComponent } from './account/account.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ExercisesComponent } from './exercises/exercises/exercises.component';
-import { WorkoutsComponent } from './workouts/workouts/workouts.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './components/login/login.component';
+import { AccountComponent } from './components/account/account.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ExercisesComponent } from './components/exercises/exercises/exercises.component';
+import { WorkoutsComponent } from './components/workouts/workouts/workouts.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

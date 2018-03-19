@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthService } from '../services/auth/auth.service';
-import { UserService } from '../services/user/user.service';
-import { User, AuthUser, emptyUserObject, emptyAuthUserObject } from '../models/User';
+import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
+import { User, AuthUser, emptyUserObject, emptyAuthUserObject } from '../../models/User';
 
 @Component({
   selector: 'app-account',

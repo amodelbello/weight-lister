@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { AuthService } from '../services/auth/auth.service';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 

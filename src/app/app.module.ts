@@ -9,25 +9,25 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { ExercisesComponent } from './exercises/exercises/exercises.component';
-import { WorkoutsComponent } from './workouts/workouts/workouts.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ExercisesComponent } from './components/exercises/exercises/exercises.component';
+import { WorkoutsComponent } from './components/workouts/workouts/workouts.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthService } from './services/auth/auth.service';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { ExerciseService } from './services/exercise/exercise.service';
 import { UserService } from './services/user/user.service';
-import { SpinnerComponent } from './spinner/spinner.component';
-import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ExerciseFormComponent } from './components/exercises/exercise-form/exercise-form.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
 import { PaginationService } from './services/pagination/pagination.service';
 import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
-import { AccountComponent } from './/account/account.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [

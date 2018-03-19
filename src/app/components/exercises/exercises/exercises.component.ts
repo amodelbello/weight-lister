@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ExerciseService } from '../../services/exercise/exercise.service';
-import { Exercise, emptyExerciseObject } from '../../models/Exercise';
-import { UserService } from '../../services/user/user.service';
-import { User } from '../../models/User';
-import { FormType } from '../../models/FormType';
+import { ExerciseService } from '../../../services/exercise/exercise.service';
+import { Exercise, emptyExerciseObject } from '../../../models/Exercise';
+import { UserService } from '../../../services/user/user.service';
+import { User } from '../../../models/User';
+import { FormType } from '../../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
-import { PaginationService } from '../../services/pagination/pagination.service';
-import { NumberToArrayPipe } from '../../pipes/number-to-array.pipe';
+import { PaginationService } from '../../../services/pagination/pagination.service';
+import { NumberToArrayPipe } from '../../../pipes/number-to-array.pipe';
 
 @Component({
   selector: 'app-exercises',
