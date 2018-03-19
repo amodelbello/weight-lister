@@ -3,18 +3,14 @@
     <div class="col-sm-8">
       <h1>Exercises</h1>
     </div>
-    <div *ngIf="exercises?.length > 0" class="col-sm-4">
-      <div class="dropdown show pull-right mt-3">
-        <a class="btn btn-sm text-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ({{ pageItemLimit }} per page)
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" (click)="pageLimitClick(10)">10</a>
-          <a class="dropdown-item" (click)="pageLimitClick(25)">25</a>
-          <a class="dropdown-item" (click)="pageLimitClick(50)">50</a>
-        </div>
-      </div>
-    </div>
+
+    <app-page-item-limit 
+      *ngIf="exercises?.length > 0"
+      class="col-sm-4"
+      [pageItemLimit]="pageItemLimit"
+      (limitChangeEvent)="pageLimitClick($event)"
+    ></app-page-item-limit>
+
   </div>
 </div>
 <div class="container" *ngIf="!isLoading; else spinner">

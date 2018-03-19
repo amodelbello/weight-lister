@@ -1,0 +1,10 @@
+<div class="dropdown show pull-right mt-3">
+  <a class="btn btn-sm text-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ({{ pageItemLimit }} per page)
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" (click)="onClick(10)">10</a>
+    <a class="dropdown-item" (click)="onClick(25)">25</a>
+    <a class="dropdown-item" (click)="onClick(50)">50</a>
+  </div>
+</div>

@@ -29,6 +29,7 @@ import { PaginationService } from './services/pagination/pagination.service';
 import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
 import { AccountComponent } from './components/account/account.component';
 import { PaginationControlsComponent } from './components/table/pagination-controls/pagination-controls.component';
+import { PageItemLimitComponent } from './components/table/page-item-limit/page-item-limit.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { PaginationControlsComponent } from './components/table/pagination-contr
     NumberToArrayPipe,
     AccountComponent,
     PaginationControlsComponent,
+    PageItemLimitComponent,
   ],
   imports: [
     BrowserModule,
