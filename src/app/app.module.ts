@@ -31,7 +31,7 @@ import { AccountComponent } from './components/account/account.component';
 import { PaginationControlsComponent } from './components/table/pagination-controls/pagination-controls.component';
 import { PageItemLimitComponent } from './components/table/page-item-limit/page-item-limit.component';
 import { ColumnHeaderComponent } from './components/table/column-header/column-header.component';
-import { SearchFieldComponent } from './components/search-field/search-field.component';
+import { SearchFieldComponent } from './components/form/search-field/search-field.component';
 import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({

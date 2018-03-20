@@ -47,7 +47,7 @@ export class ExercisesComponent implements OnInit {
   }
   
   loadExercises() {
-
+    // TODO: Do I really have to do this? Need to better understand Observables...
     if (this.exercisesSubscription !== undefined) {
       this.exercisesSubscription.unsubscribe();
     }

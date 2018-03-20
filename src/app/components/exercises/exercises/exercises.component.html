@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-md-6 col-lg-8">
       <h1>Exercises</h1>
     </div>
 
-    <div class="col-sm-2 mt-3">
+    <div class="col-md-3 col-lg-2 mt-3">
       <button (click)="showSearchFilters = !showSearchFilters" class="btn btn-sm  text-secondary">Filter Results</button>
     </div>
 
     <app-page-item-limit 
       *ngIf="exercises?.length > 0"
-      class="col-sm-2"
+      class="col-md-3 col-lg-2"
       [pageItemLimit]="pageItemLimit"
       (limitChangeEvent)="pageLimitClick($event)"
     ></app-page-item-limit>
