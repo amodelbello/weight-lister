@@ -32,6 +32,7 @@ import { PaginationControlsComponent } from './components/table/pagination-contr
 import { PageItemLimitComponent } from './components/table/page-item-limit/page-item-limit.component';
 import { ColumnHeaderComponent } from './components/table/column-header/column-header.component';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
+import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
     PageItemLimitComponent,
     ColumnHeaderComponent,
     SearchFieldComponent,
+    LoadingDirective,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,9 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
     ExerciseService,
     UserService,
     PaginationService,
+  ],
+  entryComponents: [
+    SpinnerComponent,
   ],
   bootstrap: [AppComponent]
 })

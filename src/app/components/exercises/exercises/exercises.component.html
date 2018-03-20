@@ -17,7 +17,8 @@
 
   </div>
 </div>
-<div class="container" *ngIf="!isLoading; else spinner">
+
+<div class="container" *loading="isLoading">
   <div *ngIf="exercises?.length === 0">
     <hr>
     <p class="text-secondary">No exercises yet...</p>
@@ -124,9 +125,5 @@
   ></app-pagination-controls>
 
 </div>
-
-<ng-template #spinner>
-  <app-spinner></app-spinner>
-</ng-template>
 
 <app-exercise-form [type]="formType" [exercise]="exercise" (saveEvent)="loadExercises()"></app-exercise-form>
