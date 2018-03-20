@@ -1,5 +1,5 @@
-<a (click)="sortClick(sortField)">
+<a (click)="sortClick(field)">
   {{ label }}
-  <i *ngIf="activeSortField == sortField && activeSortDirection == 'asc'" class="fa fa-caret-up"></i>
-  <i *ngIf="activeSortField == sortField && activeSortDirection == 'desc'" class="fa fa-caret-down"></i>
+  <i *ngIf="activeSortField == field && activeSortDirection == 'asc'" class="fa fa-caret-up"></i>
+  <i *ngIf="activeSortField == field && activeSortDirection == 'desc'" class="fa fa-caret-down"></i>
 </a>

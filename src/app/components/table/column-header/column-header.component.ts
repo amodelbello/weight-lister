@@ -10,16 +10,8 @@ export class ColumnHeaderComponent implements OnInit {
 
   constructor() { }
 
-  /*
-            [label]="'Name'"
-          [sortField]="'name'"
-          [activeSortField]="sortField"
-          [activeSortDirection]="sortDirection"
-          class="pb-3"
-          */
-
   @Input() label: string;
-  @Input() sortField: string;
+  @Input() field: string;
   @Input() activeSortField: string;
   @Input() activeSortDirection: OrderByDirection;
 

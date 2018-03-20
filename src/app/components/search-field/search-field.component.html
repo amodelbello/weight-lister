@@ -1,0 +1,5 @@
+<div class="inner-addon right-addon">
+  <i *ngIf="!searchTerm" class="fa fa-search"></i>
+  <i *ngIf="searchTerm" class="fa fa-times" (click)="searchTermCleared()"></i>
+  <input [(ngModel)]="searchTerm" type="text" class="form-control" (keyup)="searchTermEntered($event.target.value)">
+</div>

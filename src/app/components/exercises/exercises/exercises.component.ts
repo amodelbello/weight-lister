@@ -7,6 +7,8 @@ import { FormType } from '../../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
 import { PaginationService } from '../../../services/pagination/pagination.service';
 import { NumberToArrayPipe } from '../../../pipes/number-to-array.pipe';
+import { Observable } from '@firebase/util';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-exercises',
@@ -18,9 +20,14 @@ export class ExercisesComponent implements OnInit {
   isLoading: boolean = true;
   allExercises: Exercise[];
   exercises: Exercise[];
+  exercisesSubscription: Subscription;
 
   sortField: string = 'name';
   sortDirection: OrderByDirection = 'asc';
+
+  searchFilters: Map<string, string> = new Map();
+  showSearchFilters: boolean = false;
+
   currentPage: number = 1;
   pageItemLimit: number = this.getPageLimit();
   numberOfPages: number = 0;
@@ -40,7 +47,12 @@ export class ExercisesComponent implements OnInit {
   }
   
   loadExercises() {
-    this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
+
+    if (this.exercisesSubscription !== undefined) {
+      this.exercisesSubscription.unsubscribe();
+    }
+
+    this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection).subscribe(exercises => {
       this.allExercises = exercises;
       this.setDataFromPaginationService();
       this.isLoading = false;
@@ -103,6 +115,17 @@ export class ExercisesComponent implements OnInit {
     }
 
     return sortDirection;
+  }
+
+  filter(term: string, field: string) {
+    this.searchFilters.set(field, term);
+    console.log(this.searchFilters);
+  }
+
+  clearFilter(field: string) {
+    console.log('trying to clear ' + field);
+    this.searchFilters.delete(field);
+    console.log(this.searchFilters);
   }
 
   addClick() {

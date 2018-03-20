@@ -4,9 +4,13 @@
       <h1>Exercises</h1>
     </div>
 
+    <div class="col-sm-2 mt-3">
+      <button (click)="showSearchFilters = !showSearchFilters" class="btn btn-sm  text-secondary">Filter Results</button>
+    </div>
+
     <app-page-item-limit 
       *ngIf="exercises?.length > 0"
-      class="col-sm-4"
+      class="col-sm-2"
       [pageItemLimit]="pageItemLimit"
       (limitChangeEvent)="pageLimitClick($event)"
     ></app-page-item-limit>
@@ -28,38 +32,56 @@
 
   <table *ngIf="exercises?.length > 0" class="table table-sm table-hover">
     <thead>
-      <tr>
-        <th class="pb-3">
+      <tr class="d-flex">
+        <th class="pb-3 col-4">
           <app-column-header
             [label]="'Name'"
-            [sortField]="'name'"
+            [field]="'name'"
             [activeSortField]="sortField"
             [activeSortDirection]="sortDirection"
             (sortChangeEvent)="changeSort($event)"
             class="pb-3"
           ></app-column-header>
+          <app-search-field
+            *ngIf="showSearchFilters"
+            [field]="'name'"
+            (onSearch)="filter($event, 'name')"
+            (onClear)="clearFilter($event)"
+          ></app-search-field>
         </th>
-        <th class="pb-3">
+        <th class="pb-3 col-3">
           <app-column-header
             [label]="'Muscle Group'"
-            [sortField]="'muscleGroup'"
+            [field]="'muscleGroup'"
             [activeSortField]="sortField"
             [activeSortDirection]="sortDirection"
             (sortChangeEvent)="changeSort($event)"
             class="pb-3"
           ></app-column-header>
+          <app-search-field
+            *ngIf="showSearchFilters"
+            [field]="'muscleGroup'"
+            (onSearch)="filter($event, 'muscleGroup')"
+            (onClear)="clearFilter($event)"
+          ></app-search-field>
         </th>
-        <th class="pb-3">
+        <th class="pb-3 col-3">
           <app-column-header
             [label]="'Type'"
-            [sortField]="'type'"
+            [field]="'type'"
             [activeSortField]="sortField"
             [activeSortDirection]="sortDirection"
             (sortChangeEvent)="changeSort($event)"
             class="pb-3"
           ></app-column-header>
+          <app-search-field
+            *ngIf="showSearchFilters"
+            [field]="'type'"
+            (onSearch)="filter($event, 'type')"
+            (onClear)="clearFilter($event)"
+          ></app-search-field>
         </th>
-        <th colspan="1" class="text-right">
+        <th class="text-right col-2">
           <button 
             (click)="addClick()"
             type="button" 
@@ -71,11 +93,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let exercise of exercises" class="exercise-row" data-toggle="modal" data-target="#exerciseForm">
-        <td (click)="editClick(exercise)">{{ exercise.name }}</td>
-        <td (click)="editClick(exercise)">{{ exercise.muscleGroup }}</td>
-        <td (click)="editClick(exercise)">{{ exercise.type }}</td>
-        <td class="text-right">
+      <tr *ngFor="let exercise of exercises" class="exercise-row d-flex" data-toggle="modal" data-target="#exerciseForm">
+        <td class="col-4" (click)="editClick(exercise)">{{ exercise.name }}</td>
+        <td class="col-3" (click)="editClick(exercise)">{{ exercise.muscleGroup }}</td>
+        <td class="col-3" (click)="editClick(exercise)">{{ exercise.type }}</td>
+        <td class="text-right col-2">
           <button 
             (click)="editClick(exercise)"
             type="button" 
