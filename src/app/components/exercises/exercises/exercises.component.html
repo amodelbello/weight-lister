@@ -5,7 +5,9 @@
     </div>
 
     <div class="col-md-3 col-lg-2 mt-3">
-      <button (click)="showSearchFilters = !showSearchFilters" class="btn btn-sm  text-secondary">Filter Results</button>
+      <button (click)="toggleSearchFilters()" class="btn btn-sm  text-secondary">
+        {{ showSearchFilters ? "Hide Filters" : "Filter Results" }}
+      </button>
     </div>
 
     <app-page-item-limit 
@@ -34,54 +36,54 @@
   <table *ngIf="exercises?.length > 0" class="table table-sm table-hover">
     <thead>
       <tr class="d-flex">
-        <th class="pb-3 col-4">
+        <th class="col-4">
           <app-column-header
             [label]="'Name'"
             [field]="'name'"
             [activeSortField]="sortField"
             [activeSortDirection]="sortDirection"
             (sortChangeEvent)="changeSort($event)"
-            class="pb-3"
           ></app-column-header>
-          <app-search-field
-            *ngIf="showSearchFilters"
-            [field]="'name'"
-            (onSearch)="filter($event, 'name')"
-            (onClear)="clearFilter($event)"
-          ></app-search-field>
         </th>
-        <th class="pb-3 col-3">
+
+        <th class="col-3">
           <app-column-header
             [label]="'Muscle Group'"
             [field]="'muscleGroup'"
             [activeSortField]="sortField"
             [activeSortDirection]="sortDirection"
             (sortChangeEvent)="changeSort($event)"
-            class="pb-3"
           ></app-column-header>
-          <app-search-field
+          <app-filter-field
             *ngIf="showSearchFilters"
             [field]="'muscleGroup'"
-            (onSearch)="filter($event, 'muscleGroup')"
+            [fieldList]="uniqueMuscleGroups"
+            [selectedTerm]="searchFilters.get('muscleGroup')"
+            (onFilter)="filter($event, 'muscleGroup')"
             (onClear)="clearFilter($event)"
-          ></app-search-field>
+            class="pt-3"
+          ></app-filter-field>
         </th>
-        <th class="pb-3 col-3">
+
+        <th class="col-3">
           <app-column-header
             [label]="'Type'"
             [field]="'type'"
             [activeSortField]="sortField"
             [activeSortDirection]="sortDirection"
             (sortChangeEvent)="changeSort($event)"
-            class="pb-3"
           ></app-column-header>
-          <app-search-field
+          <app-filter-field
             *ngIf="showSearchFilters"
             [field]="'type'"
-            (onSearch)="filter($event, 'type')"
+            [fieldList]="uniqueExerciseTypes"
+            [selectedTerm]="searchFilters.get('type')"
+            (onFilter)="filter($event, 'type')"
             (onClear)="clearFilter($event)"
-          ></app-search-field>
+            class="pt-3"
+          ></app-filter-field>
         </th>
+
         <th class="text-right col-2">
           <button 
             (click)="addClick()"

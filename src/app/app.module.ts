@@ -33,6 +33,8 @@ import { PageItemLimitComponent } from './components/table/page-item-limit/page-
 import { ColumnHeaderComponent } from './components/table/column-header/column-header.component';
 import { SearchFieldComponent } from './components/form/search-field/search-field.component';
 import { LoadingDirective } from './directives/loading.directive';
+import { FilterFieldComponent } from './components/form/filter-field/filter-field.component';
+import { LocalStorageService } from './services/local-storage/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { LoadingDirective } from './directives/loading.directive';
     ColumnHeaderComponent,
     SearchFieldComponent,
     LoadingDirective,
+    FilterFieldComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { LoadingDirective } from './directives/loading.directive';
     ExerciseService,
     UserService,
     PaginationService,
+    LocalStorageService,
   ],
   entryComponents: [
     SpinnerComponent,

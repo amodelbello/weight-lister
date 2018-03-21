@@ -11,7 +11,6 @@ export class SearchFieldComponent implements OnInit {
   @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
   @Output() onClear: EventEmitter<string> = new EventEmitter<string>();
   searchTerm: string;
-  // @ViewChild('searchField') searchField: HTMLInputElement;
 
   constructor() { }
 
@@ -29,8 +28,6 @@ export class SearchFieldComponent implements OnInit {
     console.log('this.field?' + this.field);
 
     this.searchTerm = '';
-    // this.searchField.value = '';
-    // this.searchField.set
     this.onClear.emit(this.field);
   }
 }

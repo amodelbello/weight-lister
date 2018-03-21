@@ -6,7 +6,7 @@ import 'rxjs/add/operator/mergeMap';
 import { Exercise } from '../../models/Exercise';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
-import { OrderByDirection } from '@firebase/firestore-types';
+import { OrderByDirection, CollectionReference } from '@firebase/firestore-types';
 
 @Injectable()
 export class ExerciseService {
@@ -21,12 +21,30 @@ export class ExerciseService {
     private userService: UserService,
   ) { }
 
-  getExercises(sortField: string = 'name', sortDirection: OrderByDirection = 'asc'): Observable<Exercise[]> {
+  getExercises(
+    sortField: string = 'name', 
+    sortDirection: OrderByDirection = 'asc', 
+    filters: Map<string, string> = null
+  ): Observable<Exercise[]> {
+
     this.exercises = this.userService.getCurrentUser()
     .flatMap(user => {
-      return this.afs.collection(`users/${user.id}/exercises`, ref => ref
-        .orderBy(sortField, sortDirection)
-        .where('isActive', '==', true))
+      return this.afs.collection(`users/${user.id}/exercises`, ref => { 
+
+        let query: CollectionReference = ref;
+        query = query.where('isActive', '==', true);
+
+        if (filters != null) {
+          filters.forEach(function(value, key) {
+            query = query.where(key, '==', value);
+          });
+        } 
+
+        query = query.orderBy(sortField, sortDirection);
+
+        return query;
+      })
+        
         .snapshotChanges()
         .map(changes => {
           return changes.map(action => {

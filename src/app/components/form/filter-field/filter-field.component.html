@@ -1,0 +1,18 @@
+<div class="dropdown show">
+  <a
+    class="btn btn-sm text-secondary dropdown-toggle px-0" 
+    href="#" 
+    role="button" 
+    id="dropdownMenuLink" 
+    data-toggle="dropdown" 
+    aria-haspopup="true" 
+    aria-expanded="false"
+  >
+    {{ selectedTerm || "Filter" }}
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a *ngFor="let field of fieldList" (click)="filterTermSelected(field)" class="dropdown-item">{{ field }}</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item text-secondary" (click)="filterTermCleared()">Clear Filter</a>
+  </div>
+</div>
