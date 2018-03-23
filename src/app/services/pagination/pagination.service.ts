@@ -11,10 +11,6 @@ export class PaginationService {
     return Math.ceil((configObject.allItems.length / configObject.pageItemLimit));
   }
 
-  convertNumberToArray(num: number): Array<number> {
-    return Array.from(Array(num),(x,i)=>i + 1)
-  }
-
   getPage(configObject: any): Exercise[] {
 
     const start: number = configObject.currentPage === 1 ? 0 : ((configObject.currentPage -1) * configObject.pageItemLimit);

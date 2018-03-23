@@ -6,6 +6,7 @@ import 'rxjs/add/operator/mergeMap';
 import { Exercise } from '../../models/Exercise';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
+import { SortingService } from '../../services/sorting/sorting.service';
 import { OrderByDirection, CollectionReference } from '@firebase/firestore-types';
 
 @Injectable()
@@ -19,6 +20,7 @@ export class ExerciseService {
   constructor(
     private afs: AngularFirestore,
     private userService: UserService,
+    private sortingService: SortingService,
   ) { }
 
   getExercises(
@@ -27,8 +29,6 @@ export class ExerciseService {
     filters: Map<string, string> = null
   ): Observable<Exercise[]> {
 
-    // TODO: Leaving the sort arugments ^ because I think this logic does belong here
-    // and I'd like to eventually move it back
     this.exercises = this.userService.getCurrentUser()
     .flatMap(user => {
       return this.afs.collection(`users/${user.id}/exercises`, ref => { 
@@ -45,14 +45,20 @@ export class ExerciseService {
         return query;
       })
       .snapshotChanges()
+
+      // Get the id of each row
       .map(changes => {
         return changes.map(action => {
           const data = action.payload.doc.data() as Exercise;
           data.id = action.payload.doc.id;
           return data;
         });
-      });
-      // here's where sort belongs
+      })
+
+      // Sort the collection
+      .map(collection => {
+        return this.sortingService.sort(collection, sortField, sortDirection);
+       });
     });
 
     return this.exercises;

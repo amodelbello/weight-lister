@@ -69,7 +69,6 @@ export class ExercisesComponent implements OnInit {
     this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
       this.allExercises = exercises;
 
-      this.setDataFromSortingService();
       this.setDataFromPaginationService();
       this.isLoading = false;
     });
@@ -88,10 +87,6 @@ export class ExercisesComponent implements OnInit {
     }
 
     return uniqueValues.sort();
-  }
-
-  private setDataFromSortingService() {
-    this.allExercises = this.sortingService.sort(this.allExercises, this.sortField, this.sortDirection);
   }
 
   private getPaginationArguments(): Object {
@@ -169,11 +164,8 @@ export class ExercisesComponent implements OnInit {
   changeSort(field) {
     this.sortDirection = this.determineSortDirection(field);
     this.sortField = field;
-    this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
-      this.allExercises = exercises;
-      this.setDataFromSortingService();
-      this.setDataFromPaginationService();
-    });
+
+    this.loadExercises();
   }
 
   private determineSortDirection(newSortField): OrderByDirection {
