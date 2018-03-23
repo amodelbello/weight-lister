@@ -6,6 +6,7 @@ import { User } from '../../../models/User';
 import { FormType } from '../../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
 import { PaginationService } from '../../../services/pagination/pagination.service';
+import { SortingService } from '../../../services/sorting/sorting.service';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { NumberToArrayPipe } from '../../../pipes/number-to-array.pipe';
 import { Observable } from '@firebase/util';
@@ -43,6 +44,7 @@ export class ExercisesComponent implements OnInit {
     private exerciseService: ExerciseService,
     private userService: UserService,
     private paginationService: PaginationService,
+    private sortingService: SortingService,
     private lss: LocalStorageService,
   ) { }
 
@@ -67,6 +69,7 @@ export class ExercisesComponent implements OnInit {
     this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
       this.allExercises = exercises;
 
+      this.setDataFromSortingService();
       this.setDataFromPaginationService();
       this.isLoading = false;
     });
@@ -85,6 +88,10 @@ export class ExercisesComponent implements OnInit {
     }
 
     return uniqueValues.sort();
+  }
+
+  private setDataFromSortingService() {
+    this.allExercises = this.sortingService.sort(this.allExercises, this.sortField, this.sortDirection);
   }
 
   private getPaginationArguments(): Object {
@@ -164,6 +171,7 @@ export class ExercisesComponent implements OnInit {
     this.sortField = field;
     this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
       this.allExercises = exercises;
+      this.setDataFromSortingService();
       this.setDataFromPaginationService();
     });
   }

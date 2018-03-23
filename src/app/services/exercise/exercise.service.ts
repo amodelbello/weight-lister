@@ -27,12 +27,14 @@ export class ExerciseService {
     filters: Map<string, string> = null
   ): Observable<Exercise[]> {
 
+    // TODO: Leaving the sort arugments ^ because I think this logic does belong here
+    // and I'd like to eventually move it back
     this.exercises = this.userService.getCurrentUser()
     .flatMap(user => {
       return this.afs.collection(`users/${user.id}/exercises`, ref => { 
 
-        let query: CollectionReference = ref;
-        query = query.where('isActive', '==', true);
+        let query;
+        query = ref.where('isActive', '==', true);
 
         if (filters != null) {
           filters.forEach(function(value, key) {
@@ -40,19 +42,17 @@ export class ExerciseService {
           });
         } 
 
-        query = query.orderBy(sortField, sortDirection);
-
         return query;
       })
-        
-        .snapshotChanges()
-        .map(changes => {
-          return changes.map(action => {
-            const data = action.payload.doc.data() as Exercise;
-            data.id = action.payload.doc.id;
-            return data;
-          });
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(action => {
+          const data = action.payload.doc.data() as Exercise;
+          data.id = action.payload.doc.id;
+          return data;
+        });
       });
+      // here's where sort belongs
     });
 
     return this.exercises;

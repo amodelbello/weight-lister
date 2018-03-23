@@ -35,6 +35,7 @@ import { SearchFieldComponent } from './components/form/search-field/search-fiel
 import { LoadingDirective } from './directives/loading.directive';
 import { FilterFieldComponent } from './components/form/filter-field/filter-field.component';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
+import { SortingService } from './services/sorting/sorting.service';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
     UserService,
     PaginationService,
     LocalStorageService,
+    SortingService,
   ],
   entryComponents: [
     SpinnerComponent,
