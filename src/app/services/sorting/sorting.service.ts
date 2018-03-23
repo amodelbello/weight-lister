@@ -9,10 +9,10 @@ export class SortingService {
   sort(collection: any, field: any, direction: OrderByDirection) {
 
     function compare(a,b) {
-      if (a[field] < b[field]) {
+      if (a[field].toLowerCase() < b[field].toLowerCase()) {
         return (direction === 'asc') ? -1 : 1;
       }
-      if (a[field] > b[field]) {
+      if (a[field].toLowerCase() > b[field].toLowerCase()) {
         return (direction === 'asc') ? 1 : -1;
       }
       return 0;
