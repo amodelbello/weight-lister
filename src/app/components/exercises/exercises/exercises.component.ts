@@ -20,6 +20,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class ExercisesComponent implements OnInit {
 
   isLoading: boolean = true;
+  userHasExercises: boolean = false;
   allExercises: Exercise[];
   exercises: Exercise[];
   exercisesSubscription: Subscription;
@@ -55,6 +56,7 @@ export class ExercisesComponent implements OnInit {
   
   loadUniqueFieldValues() {
     this.exerciseService.getExercises().subscribe(exercises => {
+      this.userHasExercises = (exercises.length > 0);
       this.uniqueExerciseTypes = this.getUniqueExerciseFieldValues('type', exercises);
       this.uniqueMuscleGroups = this.getUniqueExerciseFieldValues('muscleGroup', exercises);
     });
@@ -131,7 +133,7 @@ export class ExercisesComponent implements OnInit {
     }
   }
 
-  private getSearchFilterValues() {
+  getSearchFilterValues() {
     let values = new Map();
     const exerciseTypeValues = this.lss.get(this.lss.exerciseTable.selectedTypeFilter);
     if (exerciseTypeValues) {
@@ -142,7 +144,6 @@ export class ExercisesComponent implements OnInit {
       values.set('muscleGroup', muscleGroupValues);
     }
 
-    console.log(values);
     return values;
   }
 
@@ -195,6 +196,11 @@ export class ExercisesComponent implements OnInit {
     this.loadExercises();
     this.loadUniqueFieldValues();
     this.currentPage = 1;
+  }
+
+  clearAllfilters() {
+    this.clearFilter('type');
+    this.clearFilter('muscleGroup');
   }
 
   addClick() {
