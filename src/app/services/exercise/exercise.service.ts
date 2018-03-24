@@ -7,6 +7,7 @@ import { Exercise } from '../../models/Exercise';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
 import { SortingService } from '../../services/sorting/sorting.service';
+import { PaginationService } from '../../services/pagination/pagination.service';
 import { OrderByDirection, CollectionReference } from '@firebase/firestore-types';
 
 @Injectable()
@@ -14,22 +15,24 @@ export class ExerciseService {
 
   exercisesCollection: AngularFirestoreCollection<Exercise>;
   exerciseDoc: AngularFirestoreDocument<Exercise>;
-  exercises: Observable<Exercise[]>;
-  exercise: Observable<Exercise>;
+  exercises$: Observable<Exercise[]>;
+  exercise$: Observable<Exercise>;
 
   constructor(
     private afs: AngularFirestore,
     private userService: UserService,
     private sortingService: SortingService,
+    private paginationService: PaginationService,
   ) { }
 
   getExercises(
     sortField: string = 'name', 
     sortDirection: OrderByDirection = 'asc', 
-    filters: Map<string, string> = null
+    filters: Map<string, string> = null,
+    paginationArguments: Object = null,
   ): Observable<Exercise[]> {
 
-    this.exercises = this.userService.getCurrentUser()
+    this.exercises$ = this.userService.getCurrentUser()
     .flatMap(user => {
       return this.afs.collection(`users/${user.id}/exercises`, ref => { 
 
@@ -58,10 +61,29 @@ export class ExerciseService {
       // Sort the collection
       .map(collection => {
         return this.sortingService.sort(collection, sortField, sortDirection);
-       });
+      })
+
+      // Pagination
+      /*
+      allItems: this.allExercises,
+      numberOfPages: this.numberOfPages,
+      pageItemLimit: this.getPageLimit(),
+      currentPage: this.currentPage,
+      */
+      .map(collection => {
+        if (paginationArguments === null) {
+          return collection;
+        }
+        const start = this.paginationService.getStart(paginationArguments);
+        const end = this.paginationService.getEnd(paginationArguments);
+        // console.log(paginationArguments);
+        console.log(start);
+        console.log(end);
+        return collection.slice(start, end);
+      });
     });
 
-    return this.exercises;
+    return this.exercises$;
   }
 
   createExercise(formData) {

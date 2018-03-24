@@ -14,6 +14,7 @@ export class PaginationControlsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('from pagination controls: ' + this.numberOfPages);
   }
 
   pageClick(page: number) {

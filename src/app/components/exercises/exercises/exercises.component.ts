@@ -57,6 +57,7 @@ export class ExercisesComponent implements OnInit {
   loadUniqueFieldValues() {
     this.exerciseService.getExercises().subscribe(exercises => {
       this.userHasExercises = (exercises.length > 0);
+      this.numberOfPages = this.paginationService.getNumberOfPages(exercises.length, this.getPageLimit());
       this.uniqueExerciseTypes = this.getUniqueExerciseFieldValues('type', exercises);
       this.uniqueMuscleGroups = this.getUniqueExerciseFieldValues('muscleGroup', exercises);
     });
@@ -68,10 +69,19 @@ export class ExercisesComponent implements OnInit {
       this.exercisesSubscription.unsubscribe();
     }
 
-    this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
+    this.exercisesSubscription = this.exerciseService.getExercises(
+      this.sortField, 
+      this.sortDirection, 
+      this.searchFilters,
+      this.getPaginationArguments(),
+    ).subscribe(exercises => {
       this.allExercises = exercises;
+      this.exercises = exercises;
 
-      this.setDataFromPaginationService();
+      console.log(this.getPaginationArguments);
+      console.log(this.numberOfPages);
+
+      // this.setDataFromPaginationService();
       this.isLoading = false;
     });
 
@@ -101,8 +111,9 @@ export class ExercisesComponent implements OnInit {
   }
 
   private setDataFromPaginationService(): void {
-    this.numberOfPages = this.paginationService.getNumberOfPages(this.getPaginationArguments());
-    this.exercises = this.paginationService.getPage(this.getPaginationArguments());
+    // this.numberOfPages = this.paginationService.getNumberOfPages(this.getPaginationArguments());
+    // this.loadExercises();
+    // this.exercises = this.paginationService.getPage(this.getPaginationArguments());
   }
 
   changePage(page: number) {
@@ -110,7 +121,8 @@ export class ExercisesComponent implements OnInit {
     if (page > this.numberOfPages) page = this.numberOfPages;
 
     this.currentPage = page;
-    this.setDataFromPaginationService();
+    this.loadExercises();
+    // this.setDataFromPaginationService();
   }
 
   private getShowSearchFilters() {
@@ -159,7 +171,8 @@ export class ExercisesComponent implements OnInit {
     this.pageItemLimit = limit;
     this.lss.set(this.lss.exerciseTable.pageItemLimit, limit);
     this.currentPage = 1;
-    this.setDataFromPaginationService();
+    this.loadExercises();
+    // this.setDataFromPaginationService();
   }
 
   changeSort(field) {
