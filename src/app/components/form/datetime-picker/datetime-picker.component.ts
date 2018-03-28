@@ -9,19 +9,16 @@ declare var $: any;
 })
 export class DatetimePickerComponent implements AfterViewInit {
 
-  @Input() value: string = '';
+  @Input() inputName: string = '';
   @Output() dateChange = new EventEmitter();
 
-  @ViewChild('input') input: ElementRef;
+  @ViewChild('datetimePicker') datetimePicker: ElementRef;
 
   constructor() { }
 
   ngAfterViewInit() {
 
-    let el = this.input.nativeElement;
-    $(el).css('border', '1px solid green');
-    console.log('hello2');
-    console.log($(el).html());
+    let el = this.datetimePicker.nativeElement;
     $(el).datetimepicker();
   }
 
