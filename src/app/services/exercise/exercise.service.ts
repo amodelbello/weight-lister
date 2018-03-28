@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChangeAction } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 
@@ -15,8 +15,9 @@ export class ExerciseService {
 
   exercisesCollection: AngularFirestoreCollection<Exercise>;
   exerciseDoc: AngularFirestoreDocument<Exercise>;
-  exercises$: Observable<Exercise[]>;
   exercise$: Observable<Exercise>;
+  userAuth$: Observable<any>;
+  exercises$; 
 
   constructor(
     private afs: AngularFirestore,
@@ -32,8 +33,8 @@ export class ExerciseService {
     paginationArguments: Object = null,
   ): Observable<Exercise[]> {
 
-    this.exercises$ = this.userService.getCurrentUser()
-    .flatMap(user => {
+    this.userAuth$ = this.userService.getCurrentUser();
+    this.exercises$ = (user) => {
       return this.afs.collection(`users/${user.id}/exercises`, ref => { 
 
         let query;
@@ -56,12 +57,20 @@ export class ExerciseService {
           data.id = action.payload.doc.id;
           return data;
         });
-      })
+      });
+    };
 
-      // Sort the collection
-      .map(collection => {
-        return this.sortingService.sort(collection, sortField, sortDirection);
-      })
+    let authorizedExercises$ = this.userAuth$
+    .flatMap(this.exercises$)
+
+
+    // Sort the collection
+    .map(collection => {
+      return this.sortingService.sort(collection, sortField, sortDirection);
+    });
+
+    return authorizedExercises$;
+    /*
 
       // Pagination
       /*
@@ -69,7 +78,7 @@ export class ExerciseService {
       numberOfPages: this.numberOfPages,
       pageItemLimit: this.getPageLimit(),
       currentPage: this.currentPage,
-      */
+
       .map(collection => {
         if (paginationArguments === null) {
           return collection;
@@ -83,7 +92,7 @@ export class ExerciseService {
       });
     });
 
-    return this.exercises$;
+    */
   }
 
   createExercise(formData) {
