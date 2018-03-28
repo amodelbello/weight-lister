@@ -21,6 +21,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { ExerciseService } from './services/exercise/exercise.service';
+import { WorkoutService } from './services/workout/workout.service';
+import { WorkoutExerciseService } from './services/workout-exercise/workout-exercise.service';
 import { UserService } from './services/user/user.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ExerciseFormComponent } from './components/exercises/exercise-form/exercise-form.component';
@@ -36,6 +38,8 @@ import { LoadingDirective } from './directives/loading.directive';
 import { FilterFieldComponent } from './components/form/filter-field/filter-field.component';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
 import { SortingService } from './services/sorting/sorting.service';
+import { WorkoutComponent } from './components/workouts/workout/workout.component';
+import { DatetimePickerComponent } from './components/form/datetime-picker/datetime-picker.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +62,8 @@ import { SortingService } from './services/sorting/sorting.service';
     SearchFieldComponent,
     LoadingDirective,
     FilterFieldComponent,
+    WorkoutComponent,
+    DatetimePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +78,8 @@ import { SortingService } from './services/sorting/sorting.service';
   providers: [
     AuthService, 
     ExerciseService,
+    WorkoutService,
+    WorkoutExerciseService,
     UserService,
     PaginationService,
     LocalStorageService,

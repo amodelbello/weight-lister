@@ -6,7 +6,7 @@ export interface Exercise {
   isActive: boolean;
 }
 
-export function emptyExerciseObject() {
+export function emptyExerciseObject(): Exercise {
   const emptyExercise: Exercise = {
     id: '',
     name: '',

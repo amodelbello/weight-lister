@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject } from '../../../models/Exercise';
-import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../models/User';
 import { FormType } from '../../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
@@ -43,7 +42,6 @@ export class ExercisesComponent implements OnInit {
 
   constructor(
     private exerciseService: ExerciseService,
-    private userService: UserService,
     private paginationService: PaginationService,
     private sortingService: SortingService,
     private lss: LocalStorageService,

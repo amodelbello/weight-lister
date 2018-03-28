@@ -4,20 +4,17 @@ import { OrderByDirection, CollectionReference } from '@firebase/firestore-types
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 
-import { Exercise } from '../../models/Exercise';
+import { Workout } from '../../models/Workout';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
 import { SortingService } from '../../services/sorting/sorting.service';
 
 @Injectable()
-export class ExerciseService {
+export class WorkoutService {
 
-  // TODO: Remove this line?
-  exercisesCollection: AngularFirestoreCollection<Exercise>;
-
-  exerciseDoc: AngularFirestoreDocument<Exercise>;
-  exercises: Observable<Exercise[]>;
-  exercise: Observable<Exercise>;
+  workouts: Observable<Workout[]>;
+  workoutDoc: AngularFirestoreDocument<Workout>;
+  workout: Observable<Workout>;
 
   constructor(
     private afs: AngularFirestore,
@@ -25,24 +22,18 @@ export class ExerciseService {
     private sortingService: SortingService,
   ) { }
 
-  getExercises(
-    sortField: string = 'name', 
-    sortDirection: OrderByDirection = 'asc', 
+  getWorkouts(
+    sortField: string = 'date', 
+    sortDirection: OrderByDirection = 'desc', 
     filters: Map<string, string> = null
-  ): Observable<Exercise[]> {
+  ): Observable<Workout[]> {
 
-    this.exercises = this.userService.getCurrentUser()
+    this.workouts = this.userService.getCurrentUser()
     .flatMap(user => {
-      return this.afs.collection(`users/${user.id}/exercises`, ref => { 
+      return this.afs.collection(`users/${user.id}/workouts`, ref => {
 
         let query;
         query = ref.where('isActive', '==', true);
-
-        if (filters != null) {
-          filters.forEach(function(value, key) {
-            query = query.where(key, '==', value);
-          });
-        } 
 
         return query;
       })
@@ -51,7 +42,7 @@ export class ExerciseService {
       // Get the id of each row
       .map(changes => {
         return changes.map(action => {
-          const data = action.payload.doc.data() as Exercise;
+          const data = action.payload.doc.data() as Workout;
           data.id = action.payload.doc.id;
           return data;
         });
@@ -60,25 +51,26 @@ export class ExerciseService {
       // Sort the collection
       .map(collection => {
         return this.sortingService.sort(collection, sortField, sortDirection);
-       });
+        });
     });
 
-    return this.exercises;
+    return this.workouts;
   }
 
-  createExercise(formData) {
+  getWorkout(id: string): Observable<Workout> {
     return this.userService.getCurrentUser()
-    .map(user => {
-      this.afs.collection(`users/${user.id}/exercises`).add(formData);
+    .flatMap(user => {
+      this.workoutDoc = this.afs.doc<Workout>(`users/${user.id}/workouts/${id}`);
+      return this.workout = this.workoutDoc.snapshotChanges().map(action => {
+        if (action.payload.exists === false) {
+          return null;
+        } else {
+          const data = action.payload.data() as Workout;
+          data.id = action.payload.id;
+          return data;
+        }
+      });
     });
   }
-
-  updateExercise(formData) {
-    return this.userService.getCurrentUser()
-    .map(user => {
-      this.exerciseDoc = this.afs.doc(`users/${user.id}/exercises/${formData.id}`);
-      this.exerciseDoc.update(formData);
-    });
-  }
-
+    // return this.workout;
 }

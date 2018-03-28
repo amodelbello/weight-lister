@@ -9,6 +9,7 @@ import { AccountComponent } from './components/account/account.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ExercisesComponent } from './components/exercises/exercises/exercises.component';
 import { WorkoutsComponent } from './components/workouts/workouts/workouts.component';
+import { WorkoutComponent } from './components/workouts/workout/workout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'exercises', component: ExercisesComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: 'workouts/add', component: WorkoutComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: 'workouts/edit/:id', component: WorkoutComponent, canActivate: [AuthGuard, UserGuard] },
   { path: '**', component: NotFoundComponent },
 ];
 

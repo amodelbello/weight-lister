@@ -1,0 +1,42 @@
+<app-datetime-picker [value]="date"></app-datetime-picker>
+
+<!-- <div class="row">
+  <div class="col-md-6">
+    <a routerLink="/workouts" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back To Workouts
+    </a>
+  </div>
+  <div class="col-md-6">
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Edit Client
+  </div>
+  <div class="card-body">
+    <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input 
+          type="text"
+          class="form-control"
+          name="firstName"
+          #clientFirstName="ngModel"
+          [ngClass]="{'is-invalid':clientFirstName.errors && clientFirstName.touched}"
+          [(ngModel)]="client.firstName"
+          minlength="2"
+          required
+        >
+        <div [hidden]="!clientFirstName.errors?.required" class="invalid-feedback">
+          First name is required
+        </div>
+        <div [hidden]="!clientFirstName.errors?.minlength" class="invalid-feedback">
+          Must be at least two characters
+        </div>
+      </div>
+      
+      <input type="submit" value="Submit" class="btn btn-dark">
+    </form>
+  </div>
+</div> -->

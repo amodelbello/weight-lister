@@ -1,3 +1,59 @@
-<p>
-  workouts works!
-</p>
+<div class="container" *loading="isLoading">
+  <div *ngIf="!userHasWorkouts">
+    <hr>
+    <p class="text-secondary">No workouts yet...</p>
+    <button 
+      routerLink="/workouts/add"
+      type="button" 
+      class="btn btn-outline-dark btn-lg" 
+      data-toggle="modal" 
+      data-target="#exerciseForm"
+    ><i class="fa fa-plus"></i> New Workout</button>
+  </div>
+
+  <table *ngIf="userHasWorkouts" class="table table-sm table-hover">
+    <thead>
+      <tr class="d-flex">
+        <th class="col-10">
+          <app-column-header
+            [label]="'Date'"
+            [field]="'date'"
+            [activeSortField]="sortField"
+            [activeSortDirection]="sortDirection"
+            (sortChangeEvent)="changeSort($event)"
+          ></app-column-header>
+        </th>
+
+        <th class="text-right col-2">
+          <button 
+            routerLink="/workouts/add"
+            type="button" 
+            class="btn btn-outline-dark my-1"
+          ><i class="fa fa-plus"></i> New</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let workout of workouts" class="exercise-row d-flex">
+        <td class="col-10" routerLink="/workouts/edit/{{ workout.id }}">
+          {{ workout.date | date:'fullDate' }}
+          {{ workout.date | date:'shortTime' }}
+        </td>
+        <td class="text-right col-2">
+          <button 
+            routerLink="/workouts/edit/{{ workout.id }}"
+            type="button" 
+            class="btn btn-outline-dark btn-sm"
+          ><i class="fa fa-edit"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-pagination-controls
+    [numberOfPages]="numberOfPages"
+    [currentPage]="currentPage"
+    (clickEvent)="changePage($event)"
+  ></app-pagination-controls>
+
+</div>
