@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormType } from '../../../models/FormType';
-import { Workout } from '../../../models/Workout';
+import { Workout, emptyWorkoutObject } from '../../../models/Workout';
 import { WorkoutService } from '../../../services/workout/workout.service';
+
+declare var moment: any;
 
 @Component({
   selector: 'app-workout',
@@ -11,9 +13,10 @@ import { WorkoutService } from '../../../services/workout/workout.service';
 })
 export class WorkoutComponent implements OnInit {
 
+  dateFormatDisplay = 'dddd, MM/DD/YYYY, h:mm A';
   formType: FormType = null;
   id: string = null;
-  workout: Workout = null;
+  workout: Workout = emptyWorkoutObject();
 
   constructor(
     private router: Router,
@@ -28,9 +31,14 @@ export class WorkoutComponent implements OnInit {
       this.id = this.getWorkoutIdFromUrl();
       this.workoutService.getWorkout(this.id).subscribe((workout) => {
         this.workout = workout;
+        this.workout.date = this.formatDate(this.workout.date);
         console.log(this.workout);
       });
     }
+  }
+
+  formatDate(date) {
+    return moment(date).format(this.dateFormatDisplay);
   }
 
   private getFormType(): FormType {

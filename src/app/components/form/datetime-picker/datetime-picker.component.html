@@ -1,5 +1,14 @@
 <div class='input-group date' id='datetimepicker1' #datetimePicker>
-  <input type='text' class="form-control form-control-lg input-group-addon" />
+  <input 
+    type="text" 
+    id="datetimeInput"
+    class="form-control form-control-lg" 
+    [name]="name"
+    [(ngModel)]="value"
+    #control="ngModel"
+    #datetimeInput
+    (input)="update()"
+  >
   <div class="input-group-append input-group-addon">
     <div class="input-group-text">
       <i class="fa fa-calendar"></i>
