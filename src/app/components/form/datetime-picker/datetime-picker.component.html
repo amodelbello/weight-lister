@@ -1,4 +1,4 @@
-<div class='input-group date' id='datetimepicker1' #datetimePicker>
+<div class='form-group input-group date' id='datetimepicker1' #datetimePicker>
   <input 
     type="text" 
     id="datetimeInput"
@@ -6,12 +6,22 @@
     [name]="name"
     [(ngModel)]="value"
     #control="ngModel"
-    #datetimeInput
+    [ngClass]="{'is-invalid':control.errors && control.touched}"
     (input)="update()"
+    [pattern]="regexFormat"
+    required
   >
   <div class="input-group-append input-group-addon">
     <div class="input-group-text">
       <i class="fa fa-calendar"></i>
     </div>
   </div>
+
+  <div [hidden]="!control.errors?.required" class="invalid-feedback">
+    Date/Time is required
+  </div>
+  <div [hidden]="!control.errors?.pattern" class="invalid-feedback">
+    Date/Time is not valid, format: <strong>{{ exampleDate }}</strong>
+  </div>
 </div>
+

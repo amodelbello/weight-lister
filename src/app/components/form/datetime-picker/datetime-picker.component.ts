@@ -1,4 +1,5 @@
 import { forwardRef, Input, Output, ViewChild, ElementRef, OnInit, AfterViewInit, Component } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, FormControl } from "@angular/forms";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -23,10 +24,14 @@ declare var moment: any;
 export class DatetimePickerComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 
   private dateFormat = 'dddd, MM/DD/YYYY, h:mm A';
+  exampleDate = moment().format(this.dateFormat);
+  regexFormat = /^[\w]{3,}, [\d]{2}\/[\d]{2}\/[\d]{4}, [\d]{1,2}:[\d]{2} [\w]{2}$/;
   private onTouched = () => {};
   private onChange: (value: string) => {};
 
-  validateFn = (control) => true;
+  constructor(
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   @Input() value: string = '';
   @Input() name: string = '';
@@ -42,7 +47,17 @@ export class DatetimePickerComponent implements OnInit, AfterViewInit, ControlVa
   }
 
   validate(control: FormControl) {
-    return this.validateFn(control);
+
+    let valid = false;
+    if (control.value !== undefined && control.value !== null) {
+      valid = control.value.match(this.regexFormat);
+    }
+
+    if (valid) {
+      return null;
+    } else {
+      return { control: { valid: false } };
+    }
   }
 
   writeValue(value: string) {
@@ -58,14 +73,14 @@ export class DatetimePickerComponent implements OnInit, AfterViewInit, ControlVa
   registerOnTouched() {}
 
   @ViewChild('datetimePicker') datetimePicker;
-  @ViewChild('datetimeInput') datetimeInput;
-
-  constructor() { }
+  @ViewChild('control') datetimeInput;
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+
+    this.cdRef.detectChanges();
 
     // container div
     let dtElement = this.datetimePicker.nativeElement;
