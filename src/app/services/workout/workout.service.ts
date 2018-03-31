@@ -72,5 +72,22 @@ export class WorkoutService {
       });
     });
   }
-    // return this.workout;
+
+  createWorkout(formData) {
+    return this.userService.getCurrentUser()
+    .flatMap(user => {
+      return Observable.fromPromise(this.afs.collection(`users/${user.id}/workouts`).add(formData))
+      .map((doc) => {
+        return doc.id;
+      });
+    });
+  }
+
+  updateWorkout(formData) {
+    return this.userService.getCurrentUser()
+    .map(user => {
+      this.workoutDoc = this.afs.doc(`users/${user.id}/workouts/${formData.id}`);
+      this.workoutDoc.update(formData);
+    });
+  }
 }

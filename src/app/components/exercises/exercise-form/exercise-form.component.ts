@@ -18,7 +18,7 @@ export class ExerciseFormComponent implements OnInit {
   @Input() exercise: Exercise = emptyExerciseObject();
   @Output() saveEvent: EventEmitter<null> = new EventEmitter<null>();
   @ViewChild('exerciseForm') form: HTMLFormElement;
-  @ViewChild('closeModel') closeButton: ElementRef;
+  @ViewChild('closeModal') closeButton: ElementRef;
 
   exerciseForm: FormGroup;
 

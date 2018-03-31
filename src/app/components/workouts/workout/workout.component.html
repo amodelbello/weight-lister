@@ -5,7 +5,10 @@
       <i class="fa fa-arrow-circle-o-left"></i> Back To Workouts
     </a>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 mb-2">
+    <button *ngIf="formType === 'EDIT'" type="button" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#deleteModal">
+      Delete
+    </button>
   </div>
 </div>
 
@@ -15,6 +18,7 @@
   </div>
   <div class="card-body">
     <form #workoutForm="ngForm" (ngSubmit)="onSubmit(workoutForm)">
+      <input type="hidden" name="id" [(ngModel)]="workout.id">
       <div class="form-group">
         <label for="date">Date / Time</label>
         <app-datetime-picker [name]="'date'" [format]="dateFormatDisplay" [(ngModel)]="workout.date"></app-datetime-picker>
@@ -41,5 +45,32 @@
       
       <input type="submit" [disabled]="!workoutForm.valid" value="Submit" class="btn btn-dark">
     </form>
+  </div>
+</div>
+
+
+  <!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Are you sure?</h5>
+        <button #closeModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  
+      <form *ngIf="workout" #deleteWorkoutForm="ngForm" (ngSubmit)="onDeleteSubmit(deleteWorkoutForm)">
+        <input type="hidden" name="id" [(ngModel)]="workout.id">
+        <div class="modal-body">
+          You are about to permanently delete this workout.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+          <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+        </div>
+      </form>
+  
+    </div>
   </div>
 </div>

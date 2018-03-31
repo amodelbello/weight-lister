@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{ type | titlecase }} Exercise</h5>
-        <button #closeModel (click)="cancelClick()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button #closeModal (click)="cancelClick()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -87,7 +87,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-danger" id="exampleModalLabel">Are you sure?</h5>
-        <button #closeModel type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button #closeModal type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
