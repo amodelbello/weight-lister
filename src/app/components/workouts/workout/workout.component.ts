@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormType } from '../../../models/FormType';
 import { Workout, emptyWorkoutObject } from '../../../models/Workout';
+import { WorkoutExercise, emptyWorkoutExerciseObject } from '../../../models/WorkoutExercise';
 import { WorkoutService } from '../../../services/workout/workout.service';
+import { WorkoutExerciseService } from '../../../services/workout-exercise/workout-exercise.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { environment } from '../../../../environments/environment';
 
@@ -21,6 +23,7 @@ export class WorkoutComponent implements OnInit {
   formType: FormType = null;
   id: string = null;
   workout: Workout = emptyWorkoutObject();
+  workoutExercises: WorkoutExercise[] = null;
 
   private submitFunction: Function;
 
@@ -28,6 +31,7 @@ export class WorkoutComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private workoutService: WorkoutService,
+    private workoutExerciseService: WorkoutExerciseService,
     private flashMessage: FlashMessagesService,
   ) { }
 
@@ -39,6 +43,12 @@ export class WorkoutComponent implements OnInit {
       this.workoutService.getWorkout(this.id).subscribe((workout) => {
         this.workout = workout;
         this.workout.date = this.formatDate(this.workout.date);
+      });
+
+      this.workoutExerciseService.getWorkoutExercises(this.id)
+      .subscribe((workoutExercises) => {
+        this.workoutExercises = workoutExercises;
+        console.log(workoutExercises);
       });
     }
   }

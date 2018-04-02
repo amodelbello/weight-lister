@@ -66,6 +66,22 @@ export class ExerciseService {
     return this.exercises;
   }
 
+  getExercise(id: string): Observable<Exercise> {
+    return this.userService.getCurrentUser()
+    .flatMap(user => {
+      this.exerciseDoc = this.afs.doc<Exercise>(`users/${user.id}/exercises/${id}`);
+      return this.exercise = this.exerciseDoc.snapshotChanges().map(action => {
+        if (action.payload.exists === false) {
+          return null;
+        } else {
+          const data = action.payload.data() as Exercise;
+          data.id = action.payload.id;
+          return data;
+        }
+      });
+    });
+  }
+
   createExercise(formData) {
     return this.userService.getCurrentUser()
     .map(user => {
