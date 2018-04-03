@@ -23,7 +23,8 @@ export class WorkoutComponent implements OnInit {
   formType: FormType = null;
   id: string = null;
   workout: Workout = emptyWorkoutObject();
-  workoutExercises: WorkoutExercise[] = null;
+  workoutExercises: WorkoutExercise[] = [];
+  exercisesLoading: boolean = false;
 
   private submitFunction: Function;
 
@@ -45,9 +46,11 @@ export class WorkoutComponent implements OnInit {
         this.workout.date = this.formatDate(this.workout.date);
       });
 
+      this.exercisesLoading = true;
       this.workoutExerciseService.getWorkoutExercises(this.id)
       .subscribe((workoutExercises) => {
         this.workoutExercises = workoutExercises;
+        this.exercisesLoading = false;
         console.log(workoutExercises);
       });
     }

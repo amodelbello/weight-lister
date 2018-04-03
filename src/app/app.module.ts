@@ -40,6 +40,7 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
 import { SortingService } from './services/sorting/sorting.service';
 import { WorkoutComponent } from './components/workouts/workout/workout.component';
 import { DatetimePickerComponent } from './components/form/datetime-picker/datetime-picker.component';
+import { WorkoutExerciseComponent } from './components/workouts/workout-exercise/workout-exercise.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { DatetimePickerComponent } from './components/form/datetime-picker/datet
     FilterFieldComponent,
     WorkoutComponent,
     DatetimePickerComponent,
+    WorkoutExerciseComponent,
   ],
   imports: [
     BrowserModule,
