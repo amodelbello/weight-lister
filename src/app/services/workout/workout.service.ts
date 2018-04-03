@@ -9,6 +9,8 @@ import { User } from '../../models/User';
 import { UserService } from '../../services/user/user.service';
 import { SortingService } from '../../services/sorting/sorting.service';
 
+declare var moment: any;
+
 @Injectable()
 export class WorkoutService {
 
@@ -74,6 +76,7 @@ export class WorkoutService {
   }
 
   createWorkout(formData) {
+    formData.date = moment(formData.date).toISOString();
     return this.userService.getCurrentUser()
     .flatMap(user => {
       return Observable.fromPromise(this.afs.collection(`users/${user.id}/workouts`).add(formData))
@@ -84,6 +87,7 @@ export class WorkoutService {
   }
 
   updateWorkout(formData) {
+    formData.date = moment(formData.date).toISOString();
     return this.userService.getCurrentUser()
     .map(user => {
       this.workoutDoc = this.afs.doc(`users/${user.id}/workouts/${formData.id}`);
