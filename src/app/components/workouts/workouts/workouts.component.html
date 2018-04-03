@@ -42,12 +42,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let workout of workouts" class="exercise-row d-flex">
+      <tr *ngFor="let workout of workouts" class="workout-row d-flex">
         <td class="col-10" routerLink="/workouts/edit/{{ workout.id }}">
           {{ workout.date | date:'fullDate' }}
           {{ workout.date | date:'shortTime' }}
         </td>
-        <td class="text-right col-2">
+        <td class="text-right col-2" routerLink="/workouts/edit/{{ workout.id }}">
           <button 
             routerLink="/workouts/edit/{{ workout.id }}"
             type="button" 
