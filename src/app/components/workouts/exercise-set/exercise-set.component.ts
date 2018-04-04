@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { FormInteractionService } from '../../../services/interaction/form.service'
 
 @Component({
   selector: '[app-exercise-set]',
@@ -15,8 +17,16 @@ export class ExerciseSetComponent implements OnInit {
   @Input() index: number;
 
   editMode: boolean = false;
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(
+    private formInteractionService: FormInteractionService
+  ) { 
+    this.subscription = this.formInteractionService.getSetFormObservable()
+    .subscribe((data) => {
+      this.editMode = false;
+    });
+  }
 
   ngOnInit() {
   }
@@ -25,6 +35,7 @@ export class ExerciseSetComponent implements OnInit {
   }
 
   editClick() {
+    this.formInteractionService.disableOtherSetForms(this.index);
     this.editMode = true;
   }
 
@@ -33,5 +44,6 @@ export class ExerciseSetComponent implements OnInit {
   }
 
   deleteClick() {
+    this.formInteractionService.disableOtherSetForms(this.index);
   }
 }

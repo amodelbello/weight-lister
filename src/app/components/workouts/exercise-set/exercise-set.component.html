@@ -1,12 +1,12 @@
 <td>
-  {{ index + 1 }}
+  <span class="align-middle">{{ index + 1 }}</span>
 </td>
 <td>
-  <span *ngIf="editMode === false">{{ set.weight }}</span>
+  <span class="align-middle" *ngIf="editMode === false">{{ set.weight }}</span>
   <input *ngIf="editMode === true" type="text" [value]="set.weight">
 </td>
 <td>
-  <span *ngIf="editMode === false">{{ set.reps }}</span>
+  <span class="align-middle" *ngIf="editMode === false">{{ set.reps }}</span>
   <input *ngIf="editMode === true" type="text" [value]="set.reps">
 </td>
 <td class="text-right">
@@ -27,7 +27,7 @@
     data-target="#exerciseForm"
   ><i class="fa fa-check-circle"></i></button>
   <button 
-    (click)="deleteClick(exercise)"
+    (click)="deleteClick()"
     type="button" 
     class="btn btn-outline-danger btn-sm"
     data-toggle="modal" 
