@@ -28,12 +28,12 @@
     </div>
     <div class="media-body col-8">
       <h3>Sets</h3>
-      <table *ngIf="workoutExercise.sets.length > 0" class="table table-sm table-hover">
+      <table *ngIf="workoutExercise.sets.length > 0" class="workout-sets table table-sm table-hover">
         <tr>
           <th>#</th>
           <th>Reps</th>
           <th>Weight</th>
-          <th class="text-right col-2">
+          <th class="text-right">
             <button 
               (click)="addClick()"
               type="button" 
@@ -47,7 +47,7 @@
           <td>{{ i + 1 }}</td>
           <td>{{ set.reps }}</td>
           <td>{{ set.weight }}</td>
-          <td class="text-right col-2">
+          <td class="text-right">
             <button 
               (click)="editClick(exercise)"
               type="button" 
