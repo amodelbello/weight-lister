@@ -1,3 +1,70 @@
 <div *loading="workoutExercise.exercise === undefined">
-  {{ workoutExercise.exercise.name }}
+  <hr>
+  <div class="media">
+    <div class="exercise-info mr-3 col-4 px-0">
+      <h3>{{ workoutExercise.exercise.name }}</h3>
+      <dl>
+        <dt class="text-secondary">Muscle Group:</dt>
+        <dd>{{ workoutExercise.exercise.muscleGroup }}</dd>
+        <dt class="text-secondary">Type:</dt>
+        <dd>{{ workoutExercise.exercise.type }}</dd>
+      </dl>
+      <div>
+        <button 
+          (click)="editClick(exercise)"
+          type="button" 
+          class="btn btn-outline-dark btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-edit"></i></button>
+        <button 
+          (click)="deleteClick(exercise)"
+          type="button" 
+          class="btn btn-outline-danger btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-times-circle"></i></button>
+      </div>
+    </div>
+    <div class="media-body col-8">
+      <h3>Sets</h3>
+      <table *ngIf="workoutExercise.sets.length > 0" class="table table-sm table-hover">
+        <tr>
+          <th>#</th>
+          <th>Reps</th>
+          <th>Weight</th>
+          <th class="text-right col-2">
+            <button 
+              (click)="addClick()"
+              type="button" 
+              class="btn btn-sm btn-outline-dark my-1"
+              data-toggle="modal" 
+              data-target="#exerciseForm"
+            ><i class="fa fa-plus"></i> New Set</button>
+          </th>
+        </tr>
+        <tr *ngFor="let set of workoutExercise.sets; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ set.reps }}</td>
+          <td>{{ set.weight }}</td>
+          <td class="text-right col-2">
+            <button 
+              (click)="editClick(exercise)"
+              type="button" 
+              class="btn btn-outline-dark btn-sm"
+              data-toggle="modal" 
+              data-target="#exerciseForm"
+            ><i class="fa fa-edit"></i></button>
+            <button 
+              (click)="deleteClick(exercise)"
+              type="button" 
+              class="btn btn-outline-danger btn-sm"
+              data-toggle="modal" 
+              data-target="#exerciseForm"
+            ><i class="fa fa-times-circle"></i></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
