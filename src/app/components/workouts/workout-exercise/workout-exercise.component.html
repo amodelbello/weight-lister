@@ -31,8 +31,8 @@
       <table *ngIf="workoutExercise.sets.length > 0" class="workout-sets table table-sm table-hover">
         <tr>
           <th>#</th>
-          <th>Reps</th>
           <th>Weight</th>
+          <th>Reps</th>
           <th class="text-right">
             <button 
               (click)="addClick()"
@@ -43,27 +43,12 @@
             ><i class="fa fa-plus"></i> New Set</button>
           </th>
         </tr>
-        <tr *ngFor="let set of workoutExercise.sets; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ set.reps }}</td>
-          <td>{{ set.weight }}</td>
-          <td class="text-right">
-            <button 
-              (click)="editClick(exercise)"
-              type="button" 
-              class="btn btn-outline-dark btn-sm"
-              data-toggle="modal" 
-              data-target="#exerciseForm"
-            ><i class="fa fa-edit"></i></button>
-            <button 
-              (click)="deleteClick(exercise)"
-              type="button" 
-              class="btn btn-outline-danger btn-sm"
-              data-toggle="modal" 
-              data-target="#exerciseForm"
-            ><i class="fa fa-times-circle"></i></button>
-          </td>
-        </tr>
+        <tr 
+          app-exercise-set 
+          *ngFor="let set of workoutExercise.sets; let i = index" 
+          [set]="set" 
+          [index]="i"
+        >
       </table>
     </div>
   </div>

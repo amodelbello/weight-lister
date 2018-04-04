@@ -41,6 +41,7 @@ import { SortingService } from './services/sorting/sorting.service';
 import { WorkoutComponent } from './components/workouts/workout/workout.component';
 import { DatetimePickerComponent } from './components/form/datetime-picker/datetime-picker.component';
 import { WorkoutExerciseComponent } from './components/workouts/workout-exercise/workout-exercise.component';
+import { ExerciseSetComponent } from './components/workouts/exercise-set/exercise-set.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { WorkoutExerciseComponent } from './components/workouts/workout-exercise
     WorkoutComponent,
     DatetimePickerComponent,
     WorkoutExerciseComponent,
+    ExerciseSetComponent,
   ],
   imports: [
     BrowserModule,

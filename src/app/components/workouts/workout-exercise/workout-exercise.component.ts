@@ -11,11 +11,17 @@ export class WorkoutExerciseComponent implements OnInit {
   @Input() workoutExercise: WorkoutExercise = emptyWorkoutExerciseObject();
 
   constructor() {
-    let hello = 'hello';
   }
 
   ngOnInit() {
-    let test = 'test';
   }
 
+  addClick() {
+  }
+
+  editClick() {
+  }
+
+  deleteClick() {
+  }
 }
