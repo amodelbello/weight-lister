@@ -15,6 +15,7 @@ export class ExerciseSetComponent implements OnInit {
   };
   @Input() index: number;
   @Output() saveEvent: EventEmitter<null> = new EventEmitter<null>();
+  @Output() deleteEvent: EventEmitter<null> = new EventEmitter<null>();
 
   editMode: boolean = false;
   subscription: Subscription;
@@ -44,7 +45,8 @@ export class ExerciseSetComponent implements OnInit {
     this.editMode = false;
   }
 
-  deleteClick() {
+  deleteClick(index) {
+    this.deleteEvent.emit(index);
     this.formInteractionService.disableOtherSetForms(this.index);
   }
 }

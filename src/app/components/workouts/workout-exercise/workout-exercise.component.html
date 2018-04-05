@@ -31,7 +31,7 @@
           <th>Reps</th>
           <th class="text-right">
             <button 
-              (click)="addClick()"
+              (click)="addSetClick()"
               type="button" 
               class="btn btn-sm btn-outline-dark my-1"
             ><i class="fa fa-plus"></i> New Set</button>
@@ -43,6 +43,7 @@
           [set]="set" 
           [index]="i"
           (saveEvent)="save()"
+          (deleteEvent)="deleteSet($event)"
         >
       </table>
     </div>

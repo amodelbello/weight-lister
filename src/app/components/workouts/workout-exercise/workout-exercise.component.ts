@@ -27,7 +27,17 @@ export class WorkoutExerciseComponent implements OnInit {
   ngOnInit() {
   }
 
-  addClick() {
+  addSetClick() {
+    this.workoutExercise.sets.push({
+      weight: 0,
+      reps: 0,
+    });
+    this.save();
+  }
+
+  deleteSet(index) {
+    this.workoutExercise.sets.splice(index, 1);
+    this.save();
   }
 
   editClick() {

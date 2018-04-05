@@ -15,22 +15,16 @@
     (click)="editClick()"
     type="button" 
     class="btn btn-outline-dark btn-sm"
-    data-toggle="modal" 
-    data-target="#exerciseForm"
   ><i class="fa fa-edit"></i></button>
   <button 
     *ngIf="editMode === true"
     (click)="saveClick()"
     type="button" 
     class="btn btn-outline-success btn-sm"
-    data-toggle="modal" 
-    data-target="#exerciseForm"
   ><i class="fa fa-check-circle"></i></button>
   <button 
-    (click)="deleteClick()"
+    (click)="deleteClick(index)"
     type="button" 
     class="btn btn-outline-danger btn-sm"
-    data-toggle="modal" 
-    data-target="#exerciseForm"
   ><i class="fa fa-times-circle"></i></button>
 </td>
