@@ -40,9 +40,17 @@ export class ExerciseSetComponent implements OnInit {
     this.editMode = true;
   }
 
-  saveClick(data) {
+  saveClick(set) {
+    set = this.coerceSet(set);
     this.saveEvent.emit();
     this.editMode = false;
+  }
+
+  private coerceSet(set) {
+    if (isNaN(set.reps)) set.reps = 0;
+    if (isNaN(set.weight)) set.weight = 0;
+
+    return set;
   }
 
   deleteClick(index) {
