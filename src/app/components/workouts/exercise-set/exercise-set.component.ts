@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { FormInteractionService } from '../../../services/interaction/form.service'
 
@@ -13,8 +13,8 @@ export class ExerciseSetComponent implements OnInit {
     reps: number,
     weight: number;
   };
-
   @Input() index: number;
+  @Output() saveEvent: EventEmitter<null> = new EventEmitter<null>();
 
   editMode: boolean = false;
   subscription: Subscription;
@@ -39,7 +39,8 @@ export class ExerciseSetComponent implements OnInit {
     this.editMode = true;
   }
 
-  saveClick() {
+  saveClick(data) {
+    this.saveEvent.emit();
     this.editMode = false;
   }
 

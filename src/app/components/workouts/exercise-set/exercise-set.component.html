@@ -3,11 +3,11 @@
 </td>
 <td>
   <span class="align-middle" *ngIf="editMode === false">{{ set.weight }}</span>
-  <input *ngIf="editMode === true" type="text" [value]="set.weight">
+  <input *ngIf="editMode === true" type="text" [(ngModel)]="set.weight">
 </td>
 <td>
   <span class="align-middle" *ngIf="editMode === false">{{ set.reps }}</span>
-  <input *ngIf="editMode === true" type="text" [value]="set.reps">
+  <input *ngIf="editMode === true" type="text" [(ngModel)]="set.reps">
 </td>
 <td class="text-right">
   <button 

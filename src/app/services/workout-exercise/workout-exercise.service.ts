@@ -92,12 +92,24 @@ export class WorkoutExerciseService {
     });
   }
 
-  updateWorkout(formData) {
+  */
+
+  updateWorkoutExercise(formData) {
+    let data = this.toFireStoreDoc(formData);
     return this.userService.getCurrentUser()
     .map(user => {
-      this.workoutDoc = this.afs.doc(`users/${user.id}/workouts/${formData.id}`);
-      this.workoutDoc.update(formData);
+      this.workoutExerciseDoc = this.afs.doc(`users/${user.id}/workout-exercises/${data.id}`);
+      this.workoutExerciseDoc.update(data);
     });
   }
-  */
+
+  private toFireStoreDoc(formData) {
+    let doc: any = {};
+    doc.id = formData.id;
+    doc.exerciseId = formData.exerciseId;
+    doc.workoutId = formData.workoutId;
+    doc.sets = formData.sets;
+
+    return doc;
+  }
 }
