@@ -1,4 +1,14 @@
-h2 {
-  font-size:20px;
-  font-weight: bold;
+.card-header {
+  .row {
+    div {
+      line-height:40px;
+
+      h2 {
+        line-height:40px;
+        font-size:18px;
+        font-weight: normal;
+        margin: 0;
+      }
+    }
+  }
 }
