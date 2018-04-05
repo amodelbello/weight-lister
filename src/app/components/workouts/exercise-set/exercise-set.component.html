@@ -1,36 +1,44 @@
-<td>
-  <span class="align-middle">{{ index + 1 }}</span>
-</td>
-<td>
-  <span class="align-middle" *ngIf="editMode === false">{{ set.weight }}</span>
-  <input *ngIf="editMode === true" type="text" [value]="set.weight">
-</td>
-<td>
-  <span class="align-middle" *ngIf="editMode === false">{{ set.reps }}</span>
-  <input *ngIf="editMode === true" type="text" [value]="set.reps">
-</td>
-<td class="text-right">
-  <button 
-    *ngIf="editMode === false"
-    (click)="editClick()"
-    type="button" 
-    class="btn btn-outline-dark btn-sm"
-    data-toggle="modal" 
-    data-target="#exerciseForm"
-  ><i class="fa fa-edit"></i></button>
-  <button 
-    *ngIf="editMode === true"
-    (click)="saveClick()"
-    type="button" 
-    class="btn btn-outline-success btn-sm"
-    data-toggle="modal" 
-    data-target="#exerciseForm"
-  ><i class="fa fa-check-circle"></i></button>
-  <button 
-    (click)="deleteClick()"
-    type="button" 
-    class="btn btn-outline-danger btn-sm"
-    data-toggle="modal" 
-    data-target="#exerciseForm"
-  ><i class="fa fa-times-circle"></i></button>
+<td colspan="4">
+<form>
+  <table class="table table-sm table-hover exercise-set-row">
+    <tr>
+      <td>
+        <span class="align-middle">{{ index + 1 }}</span>
+      </td>
+      <td>
+        <span class="align-middle" *ngIf="editMode === false">{{ set.weight }}</span>
+        <input *ngIf="editMode === true" type="text" [value]="set.weight">
+      </td>
+      <td>
+        <span class="align-middle" *ngIf="editMode === false">{{ set.reps }}</span>
+        <input *ngIf="editMode === true" type="text" [value]="set.reps">
+      </td>
+      <td class="text-right">
+        <button 
+          *ngIf="editMode === false"
+          (click)="editClick()"
+          type="button" 
+          class="btn btn-outline-dark btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-edit"></i></button>
+        <button 
+          *ngIf="editMode === true"
+          (click)="saveClick()"
+          type="button" 
+          class="btn btn-outline-success btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-check-circle"></i></button>
+        <button 
+          (click)="deleteClick()"
+          type="button" 
+          class="btn btn-outline-danger btn-sm"
+          data-toggle="modal" 
+          data-target="#exerciseForm"
+        ><i class="fa fa-times-circle"></i></button>
+      </td>
+    </tr>
+  </table>
+</form>
 </td>
