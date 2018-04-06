@@ -17,7 +17,8 @@ declare var moment: any;
 })
 export class WorkoutComponent implements OnInit {
 
-  @ViewChild('closeModal') closeButton: ElementRef;
+  @ViewChild('closeModalDelete') closeButtonDelete: ElementRef;
+  @ViewChild('closeModalAdd') closeButtonAdd: ElementRef;
 
   dateFormatDisplay = 'dddd, MM/DD/YYYY, h:mm A';
   formType: FormType = null;
@@ -95,7 +96,7 @@ export class WorkoutComponent implements OnInit {
   private formSubmitRemove(data) {
     data.isActive = false;
     const removeObservable = this.workoutService.updateWorkout(data).subscribe(data => {
-      this.closeButton.nativeElement.click();
+      this.closeButtonDelete.nativeElement.click();
       this.flashMessage.show('Workout Removed', { cssClass: 'alert-warning', timeout: environment.flashMessageDuration });
       removeObservable.unsubscribe();
 
@@ -137,7 +138,7 @@ export class WorkoutComponent implements OnInit {
 
     this.workoutExerciseService.createWorkoutExercise(workoutExercise)
     .subscribe(() => {
-      this.closeButton.nativeElement.click();
+      this.closeButtonAdd.nativeElement.click();
     })
   }
 }
