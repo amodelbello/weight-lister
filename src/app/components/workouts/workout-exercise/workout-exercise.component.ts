@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { environment } from '../../../../environments/environment';
 import { WorkoutExercise, emptyWorkoutExerciseObject } from '../../../models/WorkoutExercise'
 import { Subscription } from 'rxjs/Subscription';
 import { FormInteractionService } from '../../../services/interaction/form.service'
@@ -17,6 +19,7 @@ export class WorkoutExerciseComponent implements OnInit {
   constructor(
     private workoutExerciseService: WorkoutExerciseService,
     private formInteractionService: FormInteractionService,
+    private flashMessage: FlashMessagesService,
   ) { 
     this.subscription = this.formInteractionService.getSetFormObservable()
     .subscribe((data) => {
@@ -43,13 +46,16 @@ export class WorkoutExerciseComponent implements OnInit {
   editClick() {
   }
 
-  deleteClick() {
+  deleteClick(workoutExercise) {
+    this.workoutExerciseService.deleteWorkoutExercise(workoutExercise)
+    .subscribe(() => {
+      this.flashMessage.show('Exercise Removed From Workout', { cssClass: 'alert-warning', timeout: environment.flashMessageDuration });
+    });
   }
 
   save() {
     this.workoutExerciseService.updateWorkoutExercise(this.workoutExercise)
     .subscribe(() => {
-      console.log('saved!');
     });
   }
 }

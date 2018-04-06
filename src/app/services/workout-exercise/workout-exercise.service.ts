@@ -65,24 +65,6 @@ export class WorkoutExerciseService {
     return this.workoutExercises;
   }
 
-  /*
-  getWorkout(id: string): Observable<Workout> {
-    return this.userService.getCurrentUser()
-    .flatMap(user => {
-      this.workoutDoc = this.afs.doc<Workout>(`users/${user.id}/workouts/${id}`);
-      return this.workout = this.workoutDoc.snapshotChanges().map(action => {
-        if (action.payload.exists === false) {
-          return null;
-        } else {
-          const data = action.payload.data() as Workout;
-          data.id = action.payload.id;
-          return data;
-        }
-      });
-    });
-  }
-  */
-
   createWorkoutExercise(formData) {
     return this.userService.getCurrentUser()
     .flatMap(user => {
@@ -99,6 +81,14 @@ export class WorkoutExerciseService {
     .map(user => {
       this.workoutExerciseDoc = this.afs.doc(`users/${user.id}/workout-exercises/${data.id}`);
       this.workoutExerciseDoc.update(data);
+    });
+  }
+
+  deleteWorkoutExercise(workoutExercise: WorkoutExercise) {
+    return this.userService.getCurrentUser()
+    .map(user => {
+      this.workoutExerciseDoc = this.afs.doc(`users/${user.id}/workout-exercises/${workoutExercise.id}`);
+      this.workoutExerciseDoc.delete();
     });
   }
 

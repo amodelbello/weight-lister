@@ -6,6 +6,7 @@ export interface WorkoutExercise {
   id: string;
   workoutId: string;
   exerciseId: string;
+  exercise: Exercise;
   sets: {
     reps: number,
     weight: number,
@@ -17,6 +18,7 @@ export function emptyWorkoutExerciseObject(): WorkoutExercise {
     id: '',
     workoutId: null,
     exerciseId: null,
+    exercise: emptyExerciseObject(),
     sets: [],
   }
 

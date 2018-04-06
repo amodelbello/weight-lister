@@ -11,15 +11,10 @@
       </dl>
       <div>
         <button 
-          (click)="editClick(exercise)"
-          type="button" 
-          class="btn btn-outline-dark btn-sm"
-        ><i class="fa fa-edit"></i></button>
-        <button 
-          (click)="deleteClick(exercise)"
+          (click)="deleteClick(workoutExercise)"
           type="button" 
           class="btn btn-outline-danger btn-sm"
-        ><i class="fa fa-times-circle"></i></button>
+        >Delete</button>
       </div>
     </div>
     <div class="media-body col-8">
@@ -50,7 +45,7 @@
         <button 
           (click)="addSetClick()"
           type="button" 
-          class="btn btn-sm btn-outline-dark my-1 float-right"
+          class="btn btn-sm btn-outline-dark my-1"
         ><i class="fa fa-plus"></i> New Set</button>
       </div>
     </div>
