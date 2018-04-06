@@ -81,18 +81,17 @@ export class WorkoutExerciseService {
       });
     });
   }
+  */
 
-  createWorkout(formData) {
+  createWorkoutExercise(formData) {
     return this.userService.getCurrentUser()
     .flatMap(user => {
-      return Observable.fromPromise(this.afs.collection(`users/${user.id}/workouts`).add(formData))
+      return Observable.fromPromise(this.afs.collection(`users/${user.id}/workout-exercises`).add(formData))
       .map((doc) => {
         return doc.id;
       });
     });
   }
-
-  */
 
   updateWorkoutExercise(formData) {
     let data = this.toFireStoreDoc(formData);

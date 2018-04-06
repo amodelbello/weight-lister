@@ -128,4 +128,16 @@ export class WorkoutComponent implements OnInit {
   private getWorkoutIdFromUrl(): string {
     return this.route.snapshot.params['id'];
   }
+
+  addWorkoutExercise(exercise) {
+
+    let workoutExercise = emptyWorkoutExerciseObject();
+    workoutExercise.workoutId = this.workout.id;
+    workoutExercise.exerciseId = exercise.id;
+
+    this.workoutExerciseService.createWorkoutExercise(workoutExercise)
+    .subscribe(() => {
+      this.closeButton.nativeElement.click();
+    })
+  }
 }

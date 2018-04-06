@@ -43,6 +43,7 @@ import { DatetimePickerComponent } from './components/form/datetime-picker/datet
 import { WorkoutExerciseComponent } from './components/workouts/workout-exercise/workout-exercise.component';
 import { ExerciseSetComponent } from './components/workouts/exercise-set/exercise-set.component';
 import { FormInteractionService } from './services/interaction/form.service';
+import { WorkoutExercisesComponent } from './components/workouts/workout-exercises/workout-exercises.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { FormInteractionService } from './services/interaction/form.service';
     DatetimePickerComponent,
     WorkoutExerciseComponent,
     ExerciseSetComponent,
+    WorkoutExercisesComponent,
   ],
   imports: [
     BrowserModule,

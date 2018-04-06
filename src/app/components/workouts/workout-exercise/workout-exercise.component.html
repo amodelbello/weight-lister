@@ -46,6 +46,13 @@
           (deleteEvent)="deleteSet($event)"
         >
       </table>
+      <div *ngIf="workoutExercise.sets.length === 0">
+        <button 
+          (click)="addSetClick()"
+          type="button" 
+          class="btn btn-sm btn-outline-dark my-1 float-right"
+        ><i class="fa fa-plus"></i> New Set</button>
+      </div>
     </div>
   </div>
 </div>

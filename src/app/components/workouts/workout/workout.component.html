@@ -34,11 +34,10 @@
       </div>
       <div class="col-md-6">
         <button 
-          (click)="addClick()"
           type="button" 
           class="btn btn-sm btn-outline-dark my-1 float-right"
           data-toggle="modal" 
-          data-target="#exerciseForm"
+          data-target="#addExerciseModal"
         ><i class="fa fa-plus"></i> New Exercise</button>
       </div>
     </div>
@@ -52,6 +51,24 @@
       </div>
     </div>
   </div>
+
+
+  <!-- ADD EXERCISE MODAL -->
+  <div class="modal fade" id="addExerciseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Choose Exercise</h5>
+          <button #closeModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    
+        <app-workout-exercises (addWorkoutExerciseEvent)="addWorkoutExercise($event)"></app-workout-exercises>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- DELETE MODAL -->
@@ -59,7 +76,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-danger" id="exampleModalLabel">Are you sure?</h5>
+        <h5 class="modal-title text-danger">Are you sure?</h5>
         <button #closeModal type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
