@@ -1,13 +1,13 @@
-<td>
+<td (click)="editClick()">
   <span class="align-middle">{{ index + 1 }}</span>
 </td>
-<td>
+<td (click)="editClick()">
   <span class="align-middle" *ngIf="editMode === false">{{ set.weight }}</span>
-  <input *ngIf="editMode === true" type="text" [(ngModel)]="set.weight">
+  <input #weightInput *ngIf="editMode === true" type="text" [(ngModel)]="set.weight">
 </td>
-<td>
+<td (click)="editClick()">
   <span class="align-middle" *ngIf="editMode === false">{{ set.reps }}</span>
-  <input *ngIf="editMode === true" type="text" [(ngModel)]="set.reps">
+  <input #repsInput *ngIf="editMode === true" type="text" [(ngModel)]="set.reps">
 </td>
 <td class="text-right">
   <button 

@@ -23,7 +23,6 @@ export class WorkoutExerciseComponent implements OnInit {
   ) { 
     this.subscription = this.formInteractionService.getSetFormObservable()
     .subscribe((data) => {
-      console.log(this.workoutExercise);
     });
   }
 
