@@ -5,7 +5,6 @@ import { User } from '../../../models/User';
 import { FormType } from '../../../models/FormType';
 import { OrderByDirection } from '@firebase/firestore-types';
 import { PaginationService } from '../../../services/pagination/pagination.service';
-import { SortingService } from '../../../services/sorting/sorting.service';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { NumberToArrayPipe } from '../../../pipes/number-to-array.pipe';
 import { Observable } from '@firebase/util';
@@ -43,7 +42,6 @@ export class ExercisesComponent implements OnInit {
   constructor(
     private exerciseService: ExerciseService,
     private paginationService: PaginationService,
-    private sortingService: SortingService,
     private lss: LocalStorageService,
   ) { }
 

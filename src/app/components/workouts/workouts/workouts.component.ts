@@ -84,4 +84,20 @@ export class WorkoutsComponent implements OnInit {
     }
     return 10;
   }
+
+  changeSort(field) {
+    this.sortDirection = this.determineSortDirection(field);
+    this.sortField = field;
+
+    this.loadWorkouts();
+  }
+
+  private determineSortDirection(newSortField): OrderByDirection {
+    let sortDirection: OrderByDirection = 'asc'
+    if (this.sortField === newSortField) {
+      sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+    return sortDirection;
+  }
 }
