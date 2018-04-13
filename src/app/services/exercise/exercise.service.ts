@@ -12,9 +12,6 @@ import { SortingService } from '../../services/sorting/sorting.service';
 @Injectable()
 export class ExerciseService {
 
-  // TODO: Remove this line?
-  exercisesCollection: AngularFirestoreCollection<Exercise>;
-
   exerciseDoc: AngularFirestoreDocument<Exercise>;
   exercises: Observable<Exercise[]>;
   exercise: Observable<Exercise>;
@@ -32,17 +29,11 @@ export class ExerciseService {
   ): Observable<Exercise[]> {
 
     this.exercises = this.userService.getCurrentUser()
-    .flatMap(user => {
+    .mergeMap(user => {
       return this.afs.collection(`users/${user.id}/exercises`, ref => { 
 
         let query;
         query = ref.where('isActive', '==', true);
-
-        if (filters != null) {
-          filters.forEach(function(value, key) {
-            query = query.where(key, '==', value);
-          });
-        } 
 
         return query;
       })
@@ -57,6 +48,18 @@ export class ExerciseService {
         });
       })
 
+      // Apply filters
+      .map(collection => {
+        if (filters !== null) {
+          filters.forEach((value, key) => {
+            collection = collection.filter(item => {
+              return item[key] === value;
+            });
+          })
+        } 
+        return collection;
+      })
+      
       // Sort the collection
       .map(collection => {
         return this.sortingService.sort(collection, sortField, sortDirection);
@@ -68,7 +71,7 @@ export class ExerciseService {
 
   getExercise(id: string): Observable<Exercise> {
     return this.userService.getCurrentUser()
-    .flatMap(user => {
+    .mergeMap(user => {
       this.exerciseDoc = this.afs.doc<Exercise>(`users/${user.id}/exercises/${id}`);
       return this.exercise = this.exerciseDoc.snapshotChanges().map(action => {
         if (action.payload.exists === false) {
