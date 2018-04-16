@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/delay';
@@ -10,7 +10,7 @@ import { FormInteractionService } from '../../../services/interaction/form.servi
   templateUrl: './exercise-set.component.html',
   styleUrls: ['./exercise-set.component.scss']
 })
-export class ExerciseSetComponent {
+export class ExerciseSetComponent implements OnInit {
 
   @Input() set: {
     reps: number,
@@ -37,6 +37,21 @@ export class ExerciseSetComponent {
     });
   }
 
+  ngOnInit() {
+    // Escape key should cancel exercise set form
+    Observable.fromEvent(document, 'keyup')
+    .debounceTime(100)
+    .pluck('keyCode')
+
+    // escape key
+    .filter(code => code === 27)
+
+    .subscribe((code) => {
+      this.formInteractionService.disableOtherSetForms(0);
+      console.log(code);
+    });
+  }
+
   addClick() {
   }
 
@@ -45,6 +60,7 @@ export class ExerciseSetComponent {
       this.formInteractionService.disableOtherSetForms(this.index);
       this.editMode = true;
 
+      // Save on Return keyup
       this.enterKeySubscription$ = Observable
       .of(1)
       .delay(100)
@@ -59,8 +75,8 @@ export class ExerciseSetComponent {
       })
       .switch()
       .subscribe((code: number) => {
+        // Return key code
         if (code === 13) {
-          console.log(code);
           this.saveClick(this.set);
         }
       }); 
