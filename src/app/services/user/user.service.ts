@@ -21,7 +21,7 @@ export class UserService {
 
   getCurrentUser(): Observable<User> {
     this.user = this.authService.getAuth()
-    .flatMap(user => {
+    .mergeMap(user => {
       this.userDocument = this.afs.doc<User>(`users/${user.uid}`);
       return this.userDocument.snapshotChanges().map(action => {
         if (action.payload.exists === false) {

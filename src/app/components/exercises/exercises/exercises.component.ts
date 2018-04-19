@@ -40,9 +40,9 @@ export class ExercisesComponent implements OnInit {
   formType: FormType;
 
   constructor(
-    private exerciseService: ExerciseService,
-    private paginationService: PaginationService,
-    private lss: LocalStorageService,
+    protected exerciseService: ExerciseService,
+    protected paginationService: PaginationService,
+    protected lss: LocalStorageService,
   ) { }
 
   ngOnInit() {

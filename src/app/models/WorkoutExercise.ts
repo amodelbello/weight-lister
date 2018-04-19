@@ -11,6 +11,8 @@ export interface WorkoutExercise {
     reps: number,
     weight: number,
   }[];
+  date?: string;
+  userId?: string;
 }
 
 export function emptyWorkoutExerciseObject(): WorkoutExercise {
