@@ -4,6 +4,7 @@ export interface Exercise {
   muscleGroup: string;
   type: string;
   isActive: boolean;
+  date?: string;
 }
 
 export function emptyExerciseObject(): Exercise {

@@ -39,7 +39,6 @@ export class WorkoutsComponent implements OnInit {
   loadWorkouts() {
     this.workoutService.getWorkouts(this.sortField, this.sortDirection)
     .subscribe(workouts => {
-      console.log(workouts);
       this.allWorkouts = workouts;
 
       this.setDataFromPaginationService();

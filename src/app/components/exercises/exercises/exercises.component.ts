@@ -96,7 +96,7 @@ export class ExercisesComponent implements OnInit {
     }
   }
 
-  private setDataFromPaginationService(): void {
+  protected setDataFromPaginationService(): void {
     this.numberOfPages = this.paginationService.getNumberOfPages(this.getPaginationArguments());
     this.exercises = this.paginationService.getPage(this.getPaginationArguments());
   }
