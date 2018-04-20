@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ExerciseService } from '../../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject } from '../../../models/Exercise';
 import { FormType } from '../../../models/FormType';
+import { DatePipe } from '@angular/common';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { ExercisesComponent } from '../../exercises/exercises/exercises.component';
@@ -60,7 +61,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
       });
 
       // Map Workout Exercises to Exercises
-      let exercises = data[0]
+      this.exercises = data[0]
       .map(exercise => {
         const workoutExercise = workoutExercises.find(el => {
           return el.exerciseId === exercise.id;
@@ -81,7 +82,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
       // 5. Filter out exercises already included in current workout
 
       console.log('Combine Latest');
-      console.log(exercises);
+      console.log(this.exercises);
       console.log(workoutExercises);
     });
 

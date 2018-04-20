@@ -41,7 +41,7 @@
   <table *ngIf="userHasExercises" class="table table-sm table-hover">
     <thead>
       <tr class="d-flex">
-        <th class="col-4">
+        <th class="col-3">
           <app-column-header
             [label]="'Name'"
             [field]="'name'"
@@ -51,7 +51,7 @@
           ></app-column-header>
         </th>
 
-        <th class="col-4">
+        <th class="col-3">
           <app-column-header
             [label]="'Muscle Group'"
             [field]="'muscleGroup'"
@@ -70,7 +70,7 @@
           ></app-filter-field>
         </th>
 
-        <th class="col-4">
+        <th class="col-3">
           <app-column-header
             [label]="'Type'"
             [field]="'type'"
@@ -88,13 +88,24 @@
             class="pt-3"
           ></app-filter-field>
         </th>
+
+        <th class="col-3">
+          <app-column-header
+            [label]="'Date'"
+            [field]="'date'"
+            [activeSortField]="sortField"
+            [activeSortDirection]="sortDirection"
+            (sortChangeEvent)="changeSort($event)"
+          ></app-column-header>
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let exercise of exercises" class="exercise-row d-flex" data-toggle="modal" data-target="#exerciseForm">
-        <td class="col-4" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.name }}</td>
-        <td class="col-4" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.muscleGroup }}</td>
-        <td class="col-4" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.type }}</td>
+        <td class="col-3" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.name }}</td>
+        <td class="col-3" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.muscleGroup }}</td>
+        <td class="col-3" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.type }}</td>
+        <td class="col-3" (click)="addWorkoutExerciseClick(exercise)">{{ exercise.date | date: 'shortDate' }}</td>
       </tr>
     </tbody>
   </table>
