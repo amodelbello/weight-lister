@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ExerciseService } from '../../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject } from '../../../models/Exercise';
+import { OrderByDirection } from '@firebase/firestore-types';
 import { FormType } from '../../../models/FormType';
 import { DatePipe } from '@angular/common';
 import 'rxjs/Rx';
@@ -10,6 +11,7 @@ import { PaginationService } from '../../../services/pagination/pagination.servi
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { WorkoutExerciseService } from '../../../services/workout-exercise/workout-exercise.service';
 import { WorkoutExercise } from '../../../models/WorkoutExercise';
+import { SortingService } from '../../../services/sorting/sorting.service';
 
 declare var moment: any;
 
@@ -27,6 +29,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
     protected paginationService: PaginationService,
     protected lss: LocalStorageService,
     private workoutExerciseService: WorkoutExerciseService,
+    private sortingService: SortingService,
   ) { 
     super(exerciseService, paginationService, lss);
   }
@@ -41,7 +44,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
 
   loadExercises() {
 
-    const exercises$ = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters);
+    const exercises$ = this.exerciseService.getExercises();
     const workoutExercises$ = this.workoutExerciseService.getLatestWorkoutExercises();
     const currentWorkoutExercises$ = this.workoutExerciseService.getWorkoutExercises(this.workoutId);
 
@@ -76,12 +79,10 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
       // Filter out exercises already selected for this workout
       .filter((value) => {
         const found = data[2].find(function(element) {
-          console.log(element.exerciseId + ' == ' + value.id);
           return element.exerciseId === value.id;
         });
 
         const returnValue = (found === undefined) ? true: false;
-        console.log('returnValue: ' + returnValue);
         return (found === undefined) ? true: false;
       })
 
@@ -92,6 +93,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
         return dateA - dateB;
       });
 
+      this.allExercises = this.sortingService.sort(this.allExercises, this.sortField, this.sortDirection);
       this.setDataFromPaginationService();
       this.isLoading = false;
     });
