@@ -45,7 +45,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
     const workoutExercises$ = this.workoutExerciseService.getLatestWorkoutExercises();
     const currentWorkoutExercises$ = this.workoutExerciseService.getWorkoutExercises(this.workoutId);
 
-    Observable.combineLatest(exercises$, workoutExercises$, currentWorkoutExercises$)
+    this.exercisesSubscription = Observable.combineLatest(exercises$, workoutExercises$, currentWorkoutExercises$)
     .subscribe(data => {
 
       let workoutExercises = data[1]
@@ -63,7 +63,7 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
       });
 
       // Map Workout Exercises to Exercises
-      this.exercises = data[0]
+      this.allExercises = data[0]
       .map(exercise => {
         const workoutExercise = workoutExercises.find(el => {
           return el.exerciseId === exercise.id;
@@ -91,16 +91,6 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
         const dateB = b.date != '' ? moment(b.date) : moment(1);
         return dateA - dateB;
       });
-
-      // 5. Filter out exercises already included in current workout
-
-      console.log('Combine Latest');
-      console.log(this.exercises);
-      console.log(workoutExercises);
-    });
-
-    this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
-      this.allExercises = exercises;
 
       this.setDataFromPaginationService();
       this.isLoading = false;
