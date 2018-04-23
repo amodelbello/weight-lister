@@ -72,20 +72,17 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
       })
       // Sort by date
       .sort((a, b) => {
-        console.log(a.name + ': ' + a.date);
-        console.log(b.name + ': ' + b.date);
-        return moment(a.date) - moment(b.date);
+        const dateA = a.date != '' ? moment(a.date) : moment(1);
+        const dateB = b.date != '' ? moment(b.date) : moment(1);
+        return dateA - dateB;
       });
 
-      // 3. Map dates to exercises
-      // 4. Sort exercises by date ASC
       // 5. Filter out exercises already included in current workout
 
       console.log('Combine Latest');
       console.log(this.exercises);
       console.log(workoutExercises);
     });
-
 
     this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
       this.allExercises = exercises;
