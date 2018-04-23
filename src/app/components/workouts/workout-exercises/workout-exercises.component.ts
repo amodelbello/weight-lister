@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ExerciseService } from '../../../services/exercise/exercise.service';
 import { Exercise, emptyExerciseObject } from '../../../models/Exercise';
 import { FormType } from '../../../models/FormType';
@@ -31,23 +31,25 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
     super(exerciseService, paginationService, lss);
   }
 
-
   ngOnInit() {
     super.ngOnInit();
     this.loadWorkoutExercises();
   }
 
   @Output() addWorkoutExerciseEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Input() workoutId: string;
 
   loadExercises() {
 
     const exercises$ = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters);
     const workoutExercises$ = this.workoutExerciseService.getLatestWorkoutExercises();
+    const currentWorkoutExercises$ = this.workoutExerciseService.getWorkoutExercises(this.workoutId);
 
-    Observable.combineLatest(exercises$, workoutExercises$)
+    Observable.combineLatest(exercises$, workoutExercises$, currentWorkoutExercises$)
     .subscribe(data => {
 
       let workoutExercises = data[1]
+
       // Sort by exerciseId then by date
       .sort((a, b) => {
         if (a.exerciseId < b.exerciseId) return -1;
@@ -70,6 +72,19 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
         exercise.date = (workoutExercise !== undefined) ? workoutExercise.date : '';
         return exercise;
       })
+
+      // Filter out exercises already selected for this workout
+      .filter((value) => {
+        const found = data[2].find(function(element) {
+          console.log(element.exerciseId + ' == ' + value.id);
+          return element.exerciseId === value.id;
+        });
+
+        const returnValue = (found === undefined) ? true: false;
+        console.log('returnValue: ' + returnValue);
+        return (found === undefined) ? true: false;
+      })
+
       // Sort by date
       .sort((a, b) => {
         const dateA = a.date != '' ? moment(a.date) : moment(1);
