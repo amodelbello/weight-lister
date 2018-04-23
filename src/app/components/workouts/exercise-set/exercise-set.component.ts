@@ -31,6 +31,10 @@ export class ExerciseSetComponent implements OnInit {
   constructor(
     private formInteractionService: FormInteractionService
   ) { 
+    this.initSetFormSubscription();
+  }
+
+  initSetFormSubscription() {
     this.setFormSubscription$ = this.formInteractionService.getSetFormObservable()
     .subscribe((data) => {
       this.editMode = false;
@@ -48,14 +52,12 @@ export class ExerciseSetComponent implements OnInit {
 
     .subscribe((code) => {
       this.formInteractionService.disableOtherSetForms(0);
-      console.log(code);
     });
   }
 
-  addClick() {
-  }
-
   editClick() {
+    this.initSetFormSubscription();
+
     if (this.editMode === false) {
       this.formInteractionService.disableOtherSetForms(this.index);
       this.editMode = true;
@@ -88,6 +90,7 @@ export class ExerciseSetComponent implements OnInit {
     this.saveEvent.emit();
     this.editMode = false;
 
+    this.setFormSubscription$.unsubscribe();
     if (this.enterKeySubscription$ !== undefined) {
       this.enterKeySubscription$.unsubscribe();
     }

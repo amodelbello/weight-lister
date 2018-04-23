@@ -21,9 +21,9 @@ export class WorkoutExerciseComponent implements OnInit {
     private formInteractionService: FormInteractionService,
     private flashMessage: FlashMessagesService,
   ) { 
-    this.subscription = this.formInteractionService.getSetFormObservable()
-    .subscribe((data) => {
-    });
+    // this.subscription = this.formInteractionService.getSetFormObservable()
+    // .subscribe((data) => {
+    // });
   }
 
   ngOnInit() {
