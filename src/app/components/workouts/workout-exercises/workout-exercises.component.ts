@@ -105,12 +105,6 @@ export class WorkoutExercisesComponent extends ExercisesComponent implements OnI
   loadWorkoutExercises() {
     this.workoutExerciseService.getLatestWorkoutExercises()
     .subscribe((data) => {
-
-      // Sort by data DESC
-      data.sort((a, b) =>{
-        return moment(b.date) - moment(a.date);
-      });
-      // console.log(data);
     });
   }
 
