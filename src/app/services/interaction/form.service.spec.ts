@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { FormService } from './form.service';
+import { FormInteractionService } from './form.service';
 
 describe('FormService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FormService]
+      providers: [FormInteractionService]
     });
   });
 
-  it('should be created', inject([FormService], (service: FormService) => {
+  it('should be created', inject([FormInteractionService], (service: FormInteractionService) => {
     expect(service).toBeTruthy();
   }));
 });
