@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseApp } from 'angularfire2'
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService} from '../../services/auth/auth.service';
 import { StubAuthService } from '../../services/auth/auth.service.stub';
@@ -24,8 +24,8 @@ describe('AccountComponent', () => {
         FormsModule,
       ],
       providers: [
-        { provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); } },
         FlashMessagesService,
+        { provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); } },
         { provide: UserService, useClass: StubUserService },
         { provide: AuthService, useClass: StubAuthService },
         { provide: AngularFireAuth, useClass: class {}},
