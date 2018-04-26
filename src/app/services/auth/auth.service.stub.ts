@@ -1,22 +1,33 @@
 import { AuthService } from './auth.service';
+import * as Rx from 'rxjs/Rx';
 
 export class StubAuthService extends AuthService {
 
-  // loggedIn: boolean = false;
+  loggedIn: boolean = false;
 
-  // constructor() {
-  //   super();
-  // }
+  login(email: string, password: string) {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
+  }
 
-  // login() {
-  //   this.loggedIn = true;
-  // }
+  logout() {
+    this.loggedIn = false;
+  }
 
-  // logout() {
-  //   this.loggedIn = false;
-  // }
+  isLoggedIn() {
+    return this.loggedIn;
+  }
 
-  // isLoggedIn() {
-  //   return this.loggedIn;
-  // }
+  getAuth() {
+    const auth$ = Rx.Observable.create(observer => {
+      observer.next(
+        {
+          uid: 1,
+          email: 'test@hello.com'
+        }
+      );
+    });
+    return auth$;
+  }
 }

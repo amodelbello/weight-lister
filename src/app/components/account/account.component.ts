@@ -25,13 +25,19 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.initAuth();
+    this.initCurrentUser();
+  }
 
+  private initAuth() {
     // Get auth user
     this.authService.getAuth().subscribe(auth => {
       this.authUser.uid = auth.uid;
       this.authUser.email = auth.email;
     });
+  }
 
+  private initCurrentUser() {
     // Get user
     this.userService.getCurrentUser().subscribe(user => {
       if (user !== null) {
