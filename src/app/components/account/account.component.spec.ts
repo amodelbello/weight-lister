@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseApp } from 'angularfire2'
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FlashMessagesService } from 'angular2-flash-messages';
+
 import { AuthService} from '../../services/auth/auth.service';
 import { StubAuthService } from '../../services/auth/auth.service.stub';
 import { UserService } from '../../services/user/user.service';
