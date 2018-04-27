@@ -16,7 +16,7 @@ import { WorkoutsComponent } from '../../workouts/workouts/workouts.component';
 import { WorkoutComponent } from '../../workouts/workout/workout.component';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { ExerciseFormComponent } from '../../exercises/exercise-form/exercise-form.component';
-import { DatetimePickerComponent } from '../..//form/datetime-picker/datetime-picker.component';
+import { DatetimePickerComponent } from '../../form/datetime-picker/datetime-picker.component';
 import { WorkoutExerciseComponent } from '../../workouts/workout-exercise/workout-exercise.component';
 import { WorkoutExercisesComponent } from '../../workouts/workout-exercises/workout-exercises.component';
 import { ExerciseSetComponent } from '../../workouts/exercise-set/exercise-set.component';

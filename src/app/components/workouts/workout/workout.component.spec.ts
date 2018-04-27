@@ -56,7 +56,7 @@ describe('WorkoutComponent', () => {
       providers: [
         { provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); } },
         { provide: ActivatedRoute, useClass: class { }},
-        { provide: WorkoutService, useClass: StubWorkoutExerciseService },
+        { provide: WorkoutService, useClass: StubWorkoutService },
         { provide: ExerciseService, useClass: StubExerciseService },
         { provide: WorkoutExerciseService, useClass: StubWorkoutExerciseService },
         { provide: AuthService, useClass: StubAuthService },

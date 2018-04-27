@@ -7,30 +7,18 @@ import * as Rx from 'rxjs/Rx';
 
 export class StubWorkoutService extends WorkoutService {
 
-  // getWorkoutExercises(
-  //   workoutId: string = '',
-  //   sortField: string = '', 
-  //   sortDirection: OrderByDirection = 'desc', 
-  //   filters: Map<string, string> = null
-  // ): Observable<WorkoutExercise[]> {
-  //   const workoutExercises$ = Rx.Observable.create(observer => {
-  //     const workoutExercise = emptyWorkoutExerciseObject();
-  //     const workoutExercises = [
-  //       workoutExercise
-  //     ];
-  //     observer.next(workoutExercises);
-  //   });
-  //   return workoutExercises$;
-  // }
-
-  // getLatestWorkoutExercises(): Observable<WorkoutExercise[]> {
-  //   const workoutExercises$ = Rx.Observable.create(observer => {
-  //     const workoutExercise = emptyWorkoutExerciseObject();
-  //     const workoutExercises = [
-  //       workoutExercise
-  //     ];
-  //     observer.next(workoutExercises);
-  //   });
-  //   return workoutExercises$;
-  // }
+  getWorkouts(
+    sortField: string = 'date', 
+    sortDirection: OrderByDirection = 'desc', 
+    filters: Map<string, string> = null
+  ): Observable<Workout[]> {
+      const workouts$ = Rx.Observable.create(observer => {
+      const workout = emptyWorkoutObject();
+      const workouts = [
+        workout
+      ];
+      observer.next(workouts);
+    });
+    return workouts$;
+  }
 }
