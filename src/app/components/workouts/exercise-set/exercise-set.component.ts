@@ -15,7 +15,11 @@ export class ExerciseSetComponent implements OnInit {
   @Input() set: {
     reps: number,
     weight: number;
+  } = { 
+    reps: 0,
+    weight: 0
   };
+
   @Input() index: number;
   @Output() saveEvent: EventEmitter<null> = new EventEmitter<null>();
   @Output() deleteEvent: EventEmitter<null> = new EventEmitter<null>();

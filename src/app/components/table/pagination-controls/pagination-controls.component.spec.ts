@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NumberToArrayPipe } from '../../../pipes/number-to-array.pipe';
+
 import { PaginationControlsComponent } from './pagination-controls.component';
 
 describe('PaginationControlsComponent', () => {
@@ -8,7 +10,10 @@ describe('PaginationControlsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaginationControlsComponent ]
+      declarations: [ 
+        PaginationControlsComponent,
+        NumberToArrayPipe,
+      ]
     })
     .compileComponents();
   }));

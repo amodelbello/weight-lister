@@ -1,4 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, fakeAsync,ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+
+import { FormInteractionService } from '../../../services/interaction/form.service'
 
 import { ExerciseSetComponent } from './exercise-set.component';
 
@@ -8,7 +11,15 @@ describe('ExerciseSetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExerciseSetComponent ]
+      declarations: [ 
+        ExerciseSetComponent,
+      ],
+      imports: [
+        FormsModule,
+      ],
+      providers: [
+        FormInteractionService,
+      ]
     })
     .compileComponents();
   }));
