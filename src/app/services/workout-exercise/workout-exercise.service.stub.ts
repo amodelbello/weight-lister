@@ -7,18 +7,30 @@ import * as Rx from 'rxjs/Rx';
 
 export class StubWorkoutExerciseService extends WorkoutExerciseService {
 
-  getExercises(
-    sortField: string = 'name', 
-    sortDirection: OrderByDirection = 'asc', 
+  getWorkoutExercises(
+    workoutId: string = '',
+    sortField: string = '', 
+    sortDirection: OrderByDirection = 'desc', 
     filters: Map<string, string> = null
   ): Observable<WorkoutExercise[]> {
-    const exercises$ = Rx.Observable.create(observer => {
-      const exercise = emptyWorkoutExerciseObject();
-      const exercises = [
-        exercise
+    const workoutExercises$ = Rx.Observable.create(observer => {
+      const workoutExercise = emptyWorkoutExerciseObject();
+      const workoutExercises = [
+        workoutExercise
       ];
-      observer.next(exercises);
+      observer.next(workoutExercises);
     });
-    return exercises$;
+    return workoutExercises$;
+  }
+
+  getLatestWorkoutExercises(): Observable<WorkoutExercise[]> {
+    const workoutExercises$ = Rx.Observable.create(observer => {
+      const workoutExercise = emptyWorkoutExerciseObject();
+      const workoutExercises = [
+        workoutExercise
+      ];
+      observer.next(workoutExercises);
+    });
+    return workoutExercises$;
   }
 }
