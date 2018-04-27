@@ -51,7 +51,7 @@ describe('WorkoutExerciseComponent', () => {
       ],
       providers: [
         { provide: ExerciseService, useClass: StubExerciseService },
-        { provide: WorkoutExerciseService, useClass: StubExerciseService },
+        { provide: WorkoutExerciseService, useClass: StubWorkoutExerciseService },
         { provide: AuthService, useClass: StubAuthService },
         { provide: UserService, useClass: StubUserService },
         { provide: AngularFirestore, useClass: class {}},

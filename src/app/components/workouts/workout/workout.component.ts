@@ -105,8 +105,10 @@ export class WorkoutComponent implements OnInit {
   }
 
   private getFormType(): FormType {
-    const url = this.route.snapshot.url;
-    if(url[0].path === 'workouts') {
+
+    let url = this.route.hasOwnProperty('snapshot') ? this.route.snapshot.url : [];
+
+    if(url.length > 0 && url[0].path === 'workouts') {
 
         switch(url[1].path) {
 
