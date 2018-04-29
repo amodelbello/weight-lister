@@ -58,7 +58,7 @@ export class AccountComponent implements OnInit {
 
       const userObservable = this.userService.getCurrentUser().subscribe((user) => {
 
-        if (user == null) {
+        if (user === null) {
           this.createUser(value);
 
         } else {
@@ -110,5 +110,10 @@ export class AccountComponent implements OnInit {
     // .catch(e => {
     //   throw e;
     // });
+  }
+
+  // Expose private members for unit testing
+  getFlashMessageObject() {
+    return this.flashMessage;
   }
 }
