@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import * as Rx from 'rxjs/Rx';
+import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
@@ -22,6 +23,8 @@ describe('AccountComponent', () => {
   let fixture: ComponentFixture<AccountComponent>;
   let rootElement: DebugElement;
   let flashMessage: FlashMessagesService;
+  let userService: UserService;
+  let formData: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,6 +51,14 @@ describe('AccountComponent', () => {
     fixture.detectChanges();
     rootElement = fixture.debugElement;
     flashMessage = TestBed.get(FlashMessagesService);
+    userService = TestBed.get(UserService);
+    formData = { 
+      value: {
+        firstName: 'Irving',
+        lastName: 'Washington',
+      }, 
+      valid: true 
+    };
   });
 
   it('should create', () => {
@@ -55,7 +66,7 @@ describe('AccountComponent', () => {
   });
 
   describe('onSubmit()', () => {
-    it('should should error if form is not valid', () => {
+    it('should error if form is not valid', () => {
 
       const data = { value: 'data', valid: false };
       component.onSubmit(data);
@@ -66,10 +77,28 @@ describe('AccountComponent', () => {
       );
     });
 
-    // it('should create a new user', () => {
-    // });
+    it('should create a new user', fakeAsync(() => {
+      spyOn(userService, 'getCurrentUser').and.returnValue(Rx.Observable.of(null));
 
-    // it('should update an existing user', () => {
-    // });
+      component.onSubmit(formData);
+      tick();
+
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'User Updated', 
+        { cssClass: 'alert-info', timeout: environment.flashMessageDuration }
+      );
+    }));
+
+    it('should update an existing user', fakeAsync(() => {
+      spyOn(userService, 'getCurrentUser').and.returnValue(Rx.Observable.of(formData.value));
+
+      component.onSubmit(formData);
+      tick();
+
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'User Updated', 
+        { cssClass: 'alert-info', timeout: environment.flashMessageDuration }
+      );
+    }));
   });
 });

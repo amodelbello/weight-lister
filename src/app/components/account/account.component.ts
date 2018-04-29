@@ -65,8 +65,6 @@ export class AccountComponent implements OnInit {
           this.updateUser(value);
           // this.updateAuthUser(value);
         }
-
-        userObservable.unsubscribe();
       })
     }
   }

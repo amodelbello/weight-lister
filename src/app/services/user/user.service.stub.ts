@@ -8,4 +8,12 @@ export class StubUserService extends UserService {
   getCurrentUser() {
     return Rx.Observable.of(emptyUserObject());
   }
+
+  createUser(formData) {
+    return Promise.resolve(formData);
+  }
+
+  updateUser(formData) {
+    return Rx.Observable.of(null);
+  }
 }
