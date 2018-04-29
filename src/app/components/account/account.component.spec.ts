@@ -21,6 +21,7 @@ describe('AccountComponent', () => {
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
   let rootElement: DebugElement;
+  let flashMessage: FlashMessagesService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,6 +47,7 @@ describe('AccountComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     rootElement = fixture.debugElement;
+    flashMessage = TestBed.get(FlashMessagesService);
   });
 
   it('should create', () => {
@@ -58,7 +60,7 @@ describe('AccountComponent', () => {
       const data = { value: 'data', valid: false };
       component.onSubmit(data);
 
-      expect(component.getFlashMessageObject().show).toHaveBeenCalledWith(
+      expect(flashMessage.show).toHaveBeenCalledWith(
         'Please fill out the form correctly', 
         { cssClass: 'alert-danger', timeout: environment.flashMessageDuration }
       );

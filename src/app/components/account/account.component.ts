@@ -111,9 +111,4 @@ export class AccountComponent implements OnInit {
     //   throw e;
     // });
   }
-
-  // Expose private members for unit testing
-  getFlashMessageObject() {
-    return this.flashMessage;
-  }
 }
