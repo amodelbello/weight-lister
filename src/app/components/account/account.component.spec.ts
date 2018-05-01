@@ -89,6 +89,16 @@ describe('AccountComponent', () => {
       );
     }));
 
+    it('should throw error if createUser promise is rejected', fakeAsync(() => {
+      spyOn(userService, 'getCurrentUser').and.returnValue(Rx.Observable.of(null));
+      spyOn(userService, 'createUser').and.returnValue(Promise.reject('problem'));
+
+      component.onSubmit(formData);
+      tick();
+
+      expect(component.onSubmit).toThrow();
+    }));
+
     it('should update an existing user', fakeAsync(() => {
       spyOn(userService, 'getCurrentUser').and.returnValue(Rx.Observable.of(formData.value));
 
@@ -99,6 +109,18 @@ describe('AccountComponent', () => {
         'User Updated', 
         { cssClass: 'alert-info', timeout: environment.flashMessageDuration }
       );
+    }));
+  });
+
+  describe('ngOnInit()', () => {
+    it('should set userExists to false if current user does not exist', fakeAsync(() => {
+      expect(component.userExists).toBe(true);
+      spyOn(userService, 'getCurrentUser').and.returnValue(Rx.Observable.of(null));
+
+      component.ngOnInit();
+      tick();
+
+      expect(component.userExists).toBe(false);
     }));
   });
 });

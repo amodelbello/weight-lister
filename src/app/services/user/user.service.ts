@@ -37,7 +37,7 @@ export class UserService {
     return this.user;
   }
 
-  createUser(formData) {
+  createUser(formData): Promise<void> {
     const newUser: User = {
       firstName: formData.firstName,
       lastName: formData.lastName,

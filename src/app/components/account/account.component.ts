@@ -88,14 +88,14 @@ export class AccountComponent implements OnInit {
       this.router.navigate(['/']);
     })
     .catch(e => {
-      throw e;
+      console.log('Could not create user from user service: ' + e);
     });
   }
 
-  private updateAuthUser(formData) {
+  // private updateAuthUser(formData) {
 
     // TODO: Implementation
-    return null;
+    // return null;
 
     // const authFormData = {
     //   email: formData.email,
@@ -108,5 +108,5 @@ export class AccountComponent implements OnInit {
     // .catch(e => {
     //   throw e;
     // });
-  }
+  // }
 }
