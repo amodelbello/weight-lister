@@ -77,7 +77,6 @@ export class ExerciseFormComponent implements OnInit {
     const addObservable = this.exerciseService.createExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
       this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
-      addObservable.unsubscribe();
     });
   }
 
@@ -85,7 +84,6 @@ export class ExerciseFormComponent implements OnInit {
     const editObservable = this.exerciseService.updateExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
       this.flashMessage.show('Exercise Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
-      editObservable.unsubscribe();
     });
   }
 
@@ -94,7 +92,6 @@ export class ExerciseFormComponent implements OnInit {
     const removeObservable = this.exerciseService.updateExercise(data).subscribe(data => {
       this.closeButton.nativeElement.click();
       this.flashMessage.show('Exercise Removed', { cssClass: 'alert-warning', timeout: environment.flashMessageDuration });
-      removeObservable.unsubscribe();
     });
   }
 }
