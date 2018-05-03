@@ -59,11 +59,6 @@ export class ExercisesComponent implements OnInit {
   }
 
   loadExercises() {
-    // TODO: Do I really have to do this? Need to better understand Observables...
-    if (this.exercisesSubscription !== undefined) {
-      this.exercisesSubscription.unsubscribe();
-    }
-
     this.exercisesSubscription = this.exerciseService.getExercises(this.sortField, this.sortDirection, this.searchFilters).subscribe(exercises => {
       this.allExercises = exercises;
 
@@ -102,8 +97,8 @@ export class ExercisesComponent implements OnInit {
   }
 
   changePage(page: number) {
-    if (page < 1) page = 1;
     if (page > this.numberOfPages) page = this.numberOfPages;
+    if (page < 1) page = 1;
 
     this.currentPage = page;
     this.setDataFromPaginationService();
@@ -177,7 +172,7 @@ export class ExercisesComponent implements OnInit {
   filter(term: string, field: string) {
     this.searchFilters.set(field, term);
 
-    const lssField = field == 'type' ? this.lss.exerciseTable.selectedTypeFilter : this.lss.exerciseTable.selectedMuscleGroupFilter;
+    const lssField = field === 'type' ? this.lss.exerciseTable.selectedTypeFilter : this.lss.exerciseTable.selectedMuscleGroupFilter;
     this.lss.set(lssField, term);
 
     this.loadExercises();
@@ -187,7 +182,7 @@ export class ExercisesComponent implements OnInit {
 
   clearFilter(field: string) {
     this.searchFilters.delete(field);
-    const lssField = field == 'type' ? this.lss.exerciseTable.selectedTypeFilter : this.lss.exerciseTable.selectedMuscleGroupFilter;
+    const lssField = field === 'type' ? this.lss.exerciseTable.selectedTypeFilter : this.lss.exerciseTable.selectedMuscleGroupFilter;
     this.lss.remove(lssField);
     this.loadExercises();
     this.loadUniqueFieldValues();
