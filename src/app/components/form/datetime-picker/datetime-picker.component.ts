@@ -27,7 +27,7 @@ export class DatetimePickerComponent implements OnInit, AfterViewInit, ControlVa
   exampleDate = moment().format(this.dateFormat);
   regexFormat = /^[\w]{3,}, [\d]{2}\/[\d]{2}\/[\d]{4}, [\d]{1,2}:[\d]{2} [\w]{2}$/;
   private onTouched = () => {};
-  private onChange: (value: string) => {};
+  private onChange = (value: string) => {};
 
   constructor(
     private cdRef: ChangeDetectorRef
