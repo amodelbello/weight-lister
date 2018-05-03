@@ -28,4 +28,24 @@ describe('FilterFieldComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('filterTermSelected()', () => {
+    it('should emit onFilter event', () => {
+      const term = 'filterTermValue';
+      spyOn(component.onFilter, 'emit');
+
+      component.filterTermSelected(term);
+      expect(component.onFilter.emit).toHaveBeenCalledWith(term);
+    });
+  });
+
+  describe('filterTermCleared()', () => {
+    it('should emit onClear event', () => {
+      spyOn(component.onClear, 'emit');
+
+      component.filterTermCleared();
+      expect(component.selectedTerm).toBe('');
+      expect(component.onClear.emit).toHaveBeenCalledWith(component.field);
+    });
+  });
 });
