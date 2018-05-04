@@ -19,14 +19,10 @@ export class SearchFieldComponent implements OnInit {
   }
 
   searchTermEntered(term) {
-    console.log('searchTermEntered');
     this.onSearch.emit(term);
   }
 
   searchTermCleared() {
-
-    console.log('this.field?' + this.field);
-
     this.searchTerm = '';
     this.onClear.emit(this.field);
   }

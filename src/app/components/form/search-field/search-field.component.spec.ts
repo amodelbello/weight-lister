@@ -28,4 +28,23 @@ describe('SearchFieldComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('searchTermEntered()', () => {
+    it('should emit onSearch event', () => {
+      const term = 'searchTermValue';
+      spyOn(component.onSearch, 'emit');
+
+      component.searchTermEntered(term);
+      expect(component.onSearch.emit).toHaveBeenCalledWith(term);
+    });
+  });
+
+  describe('searchTermCleared()', () => {
+    it('should emit onClear event', () => {
+      spyOn(component.onClear, 'emit');
+
+      component.searchTermCleared()
+      expect(component.onClear.emit).toHaveBeenCalledWith(component.field);
+    });
+  });
 });
