@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.email, this.password)
     .then((response) => {
-      // this.flashMessage.show('You have successfully logged in', { cssClass: 'alert-info', timeout: environment.flashMessageDuration});
       this.router.navigate(['/']);
     })
     .catch(e => {
