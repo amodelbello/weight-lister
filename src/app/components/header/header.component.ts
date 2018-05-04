@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    // this.flashMessage.show('You are now logged out', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
     this.router.navigate(['/login']);
   }
 }

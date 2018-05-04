@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import * as Rx from 'rxjs/Rx';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FlashMessagesModule } from 'angular2-flash-messages'
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '../../services/auth/auth.service';
@@ -11,6 +12,8 @@ import { HeaderComponent } from './header.component';
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let authService: AuthService;
+  let router: Router;
   let el: HTMLElement;
 
   beforeEach(async(() => {
@@ -35,6 +38,8 @@ describe('HeaderComponent', () => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement.nativeElement;
+    authService = TestBed.get(AuthService);
+    router = TestBed.get(Router);
     fixture.detectChanges();
   });
 
@@ -42,14 +47,24 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should be able to tell whether or not the user is logged in', () => {
-    // let authService = TestBed.get(AuthService);
+  describe('ngOnInit()', () => {
+    it('call ngOnInit when not logged in', fakeAsync(() => {
+      spyOn(authService, 'getAuth').and.returnValue(Rx.Observable.of(null));
 
-    // authService.login();
-    // expect(component.isLoggedIn()).toBe(true);
+      component.ngOnInit();
+      tick();
 
-    // authService.logout();
-    // expect(component.isLoggedIn()).toBe(false);
+      expect(component.isLoggedIn).toBeFalsy();
+    }));
   });
 
+  describe('logout()', () => {
+    it('should logout and navigate to login page', () => {
+      spyOn(authService, 'logout');
+
+      component.logout();
+      expect(authService.logout).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    });
+  });
 });
