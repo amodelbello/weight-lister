@@ -22,4 +22,14 @@ describe('ColumnHeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('sortClick', () => {
+    it('should emit sortChangeEvent event', () => {
+      const field = 'fieldValue';
+      spyOn(component.sortChangeEvent, 'emit');
+      component.sortClick(field);
+
+      expect(component.sortChangeEvent.emit).toHaveBeenCalledWith(field);
+    });
+  });
 });

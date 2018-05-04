@@ -22,4 +22,14 @@ describe('PageItemLimitComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onClick', () => {
+    it('should emit limitChangeEvent event', () => {
+      const limit = 99;
+      spyOn(component.limitChangeEvent, 'emit');
+      component.onClick(limit);
+
+      expect(component.limitChangeEvent.emit).toHaveBeenCalledWith(limit);
+    });
+  });
 });

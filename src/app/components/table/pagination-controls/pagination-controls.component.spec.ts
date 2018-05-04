@@ -27,4 +27,14 @@ describe('PaginationControlsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('pageClick', () => {
+    it('should emit clickEvent event', () => {
+      const page = 99;
+      spyOn(component.clickEvent, 'emit');
+      component.pageClick(page);
+
+      expect(component.clickEvent.emit).toHaveBeenCalledWith(page);
+    });
+  });
 });
