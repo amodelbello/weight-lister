@@ -36,9 +36,6 @@ export class WorkoutExerciseComponent implements OnInit {
     this.save();
   }
 
-  editClick() {
-  }
-
   deleteClick(workoutExercise) {
     this.workoutExerciseService.deleteWorkoutExercise(workoutExercise)
     .subscribe(() => {

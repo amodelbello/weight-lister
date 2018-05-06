@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import * as Rx from 'rxjs/Rx';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { LoadingDirective } from '../../../directives/loading.directive';
@@ -18,6 +19,7 @@ import { FormInteractionService } from '../../../services/interaction/form.servi
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { environment } from '../../../../environments/environment';
 
 import { PageItemLimitComponent } from '../../table/page-item-limit/page-item-limit.component';
 import { ColumnHeaderComponent } from '../../table/column-header/column-header.component';
@@ -28,10 +30,13 @@ import { SpinnerComponent } from '../../spinner/spinner.component';
 import { WorkoutExerciseComponent } from './workout-exercise.component';
 
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { emptyWorkoutExerciseObject } from '../../../models/WorkoutExercise';
 
 describe('WorkoutExerciseComponent', () => {
   let component: WorkoutExerciseComponent;
   let fixture: ComponentFixture<WorkoutExerciseComponent>;
+  let flashMessage: FlashMessagesService;
+  let workoutExerciseService: WorkoutExerciseService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -56,7 +61,7 @@ describe('WorkoutExerciseComponent', () => {
         { provide: UserService, useClass: StubUserService },
         { provide: AngularFirestore, useClass: class {}},
         { provide: AngularFireAuth, useClass: class {}},
-        FlashMessagesService,
+        { provide: FlashMessagesService, useClass: class { show = jasmine.createSpy('show'); }},
         SortingService,
         PaginationService,
         FormInteractionService,
@@ -75,10 +80,63 @@ describe('WorkoutExerciseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WorkoutExerciseComponent);
     component = fixture.componentInstance;
+    workoutExerciseService = TestBed.get(WorkoutExerciseService);
+    flashMessage = TestBed.get(FlashMessagesService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('addSetClick()', () => {
+    it('should add empty exercise set and save', () => {
+      const initialLength = component.workoutExercise.sets.length;
+      spyOn(component, 'save');
+
+      component.addSetClick();
+
+      expect(component.workoutExercise.sets.length).toEqual(initialLength + 1);
+      expect(component.save).toHaveBeenCalled();
+    });
+  });
+
+  describe('deleteSet()', () => {
+    it('should remove set and save', () => {
+      spyOn(component, 'save');
+
+      component.addSetClick();
+      expect(component.workoutExercise.sets.length).toEqual(1);
+
+      component.deleteSet(0);
+      expect(component.workoutExercise.sets.length).toEqual(0);
+
+      expect(component.save).toHaveBeenCalled();
+    });
+  });
+
+  describe('deleteClick()', () => {
+    it('should call the workout exercise service to delete the workout exercise', fakeAsync(() => {
+      const workoutExercise = emptyWorkoutExerciseObject();
+      spyOn(workoutExerciseService, 'deleteWorkoutExercise').and.returnValue(Rx.Observable.of(null));
+
+      component.deleteClick(workoutExercise);
+      tick();
+
+      expect(workoutExerciseService.deleteWorkoutExercise).toHaveBeenCalledWith(workoutExercise);
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'Exercise Removed From Workout', 
+        { cssClass: 'alert-warning', timeout: environment.flashMessageDuration }
+      );
+    }));
+  });
+
+  describe('save()', () => {
+    it('should use the workout exercise service to update the workout exercise', () => {
+      spyOn(workoutExerciseService, 'updateWorkoutExercise').and.returnValue(Rx.Observable.of(null));
+      component.save();
+
+      expect(workoutExerciseService.updateWorkoutExercise).toHaveBeenCalledWith(component.workoutExercise);
+    });
   });
 });
