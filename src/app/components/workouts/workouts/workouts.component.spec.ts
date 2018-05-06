@@ -101,4 +101,79 @@ describe('WorkoutsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('changePage()', () => {
+    it('should set current page to 1 if input is less than zero', () => {
+      const setDataFromPaginationService = spyOn<any>(component, 'setDataFromPaginationService')
+      const page = -5;
+
+      component.changePage(page);
+      expect(component.currentPage).toEqual(1);
+      expect(setDataFromPaginationService).toHaveBeenCalled();
+    });
+
+    it('should set current page to number of pages if input is greater than number of pages', () => {
+      const setDataFromPaginationService = spyOn<any>(component, 'setDataFromPaginationService')
+      const page = 5;
+      component.numberOfPages = 3
+
+      component.changePage(page);
+      expect(component.currentPage).toEqual(component.numberOfPages);
+      expect(setDataFromPaginationService).toHaveBeenCalled();
+    });
+
+    it('should set current page to input specified', () => {
+      const setDataFromPaginationService = spyOn<any>(component, 'setDataFromPaginationService')
+      const page = 5;
+      component.numberOfPages = 11
+
+      component.changePage(page);
+      expect(component.currentPage).toEqual(page);
+      expect(setDataFromPaginationService).toHaveBeenCalled();
+    });
+  });
+
+  describe('getPageLimit()', () => {
+    it('should return page limit', () => {
+      // TODO: This test might not be necessary
+    });
+  });
+
+  describe('changeSort()', () => {
+    it('should change sort field and direction and load workouts', () => {
+      const field = 'sortFieldValue';
+      spyOn(component, 'loadWorkouts');
+
+      component.changeSort(field);
+
+      expect(component.sortField).toBe(field);
+      expect(component.sortDirection).toBe('asc');
+      expect(component.loadWorkouts).toHaveBeenCalled();
+    });
+
+    it('should toggle sort direction to \'asc\'', () => {
+      const field = 'sortFieldValue';
+      component.sortField = field;
+      spyOn(component, 'loadWorkouts');
+
+      component.changeSort(field);
+
+      expect(component.sortField).toBe(field);
+      expect(component.sortDirection).toBe('asc');
+      expect(component.loadWorkouts).toHaveBeenCalled();
+    });
+
+    it('should toggle sort direction to \'desc\'', () => {
+      const field = 'sortFieldValue';
+      component.sortField = field;
+      component.sortDirection = 'asc';
+      spyOn(component, 'loadWorkouts');
+
+      component.changeSort(field);
+
+      expect(component.sortField).toBe(field);
+      expect(component.sortDirection).toBe('desc');
+      expect(component.loadWorkouts).toHaveBeenCalled();
+    });
+  });
 });
