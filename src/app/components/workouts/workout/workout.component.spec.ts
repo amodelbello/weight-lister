@@ -22,6 +22,7 @@ import { PaginationService } from '../../../services/pagination/pagination.servi
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { environment } from '../../../../environments/environment';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { FormInteractionService } from '../../../services/interaction/form.service';
 
@@ -38,6 +39,7 @@ import { SpinnerComponent } from '../../spinner/spinner.component';
 import { FormType } from '../../../models/FormType';
 import { emptyWorkoutObject } from '../../../models/Workout';
 import { emptyWorkoutExerciseObject } from '../../../models/WorkoutExercise';
+import { emptyExerciseObject } from '../../../models/Exercise';
 
 describe('WorkoutComponent', () => {
   let component: WorkoutComponent;
@@ -46,6 +48,7 @@ describe('WorkoutComponent', () => {
   let workoutExerciseService: WorkoutExerciseService;
   let flashMessage: FlashMessagesService;
   let route: ActivatedRoute;
+  let router: Router;
   let lss: LocalStorageService;
 
   beforeEach(async(() => {
@@ -110,6 +113,7 @@ describe('WorkoutComponent', () => {
     workoutService = TestBed.get(WorkoutService);
     flashMessage = TestBed.get(FlashMessagesService);
     route = TestBed.get(ActivatedRoute);
+    router = TestBed.get(Router);
     fixture.detectChanges();
   });
 
@@ -179,5 +183,114 @@ describe('WorkoutComponent', () => {
       expect(component.id).toEqual(route.snapshot.params['id']);
       expect(component.exercisesLoading).toBeFalsy();
     }));
+  });
+
+  describe('onSubmit()', () => {
+    it('should submit a valid form', () => {
+      const data = {
+        value: 'formInputValue',
+        valid: true,
+      };
+
+      const submitFunction = spyOn<any>(component, 'submitFunction');
+      component.onSubmit(data);
+
+      expect(submitFunction).toHaveBeenCalled();
+    });
+
+    it('should display an error on an invalid form', () => {
+      const data = {
+        value: 'formInputValue',
+        valid: false,
+      };
+
+      component.onSubmit(data);
+
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'Please fill out the form correctly', 
+        { cssClass: 'alert-danger', timeout: environment.flashMessageDuration }
+      );
+    });
+
+    it('should add a workout', fakeAsync(() => {
+      const data = {
+        value: {},
+        valid: true,
+      };
+
+      route.snapshot.url[1].path = 'add';
+      component.ngOnInit();
+      spyOn(workoutService, 'createWorkout').and.callThrough();
+      component.onSubmit(data);
+      tick();
+
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'Workout Saved', 
+        { cssClass: 'alert-info', timeout: environment.flashMessageDuration }
+      );
+      expect(router.navigate).toHaveBeenCalledWith(['/workouts/edit/workoutIdValue']);
+    }));
+
+    it('should edit a workout', fakeAsync(() => {
+      const data = {
+        value: {},
+        valid: true,
+      };
+
+      route.snapshot.url[1].path = 'edit';
+      component.ngOnInit();
+      spyOn(workoutService, 'updateWorkout').and.callThrough();
+      component.onSubmit(data);
+      tick();
+
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'Workout Saved', 
+        { cssClass: 'alert-info', timeout: environment.flashMessageDuration }
+      );
+      expect(router.navigate).not.toHaveBeenCalled();
+    }));
+
+    it('should delete a workout', () => {
+      const data = {
+        value: {},
+        valid: true,
+      };
+
+      const formSubmitRemove = spyOn<any>(component, 'formSubmitRemove').and.callThrough();
+      component.onDeleteSubmit(data);
+
+      expect(formSubmitRemove).toHaveBeenCalled();
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'Workout Removed', 
+        { cssClass: 'alert-warning', timeout: environment.flashMessageDuration }
+      );
+      expect(router.navigate).toHaveBeenCalledWith(['/workouts']);
+    });
+
+    it('should display an error when trying to remove a workout with invalid data', fakeAsync(() => {
+      const data = {
+        value: 'formInputValue',
+        valid: false,
+      };
+
+      component.onDeleteSubmit(data);
+
+      expect(flashMessage.show).toHaveBeenCalledWith(
+        'Please fill out the form correctly', 
+        { cssClass: 'alert-danger', timeout: environment.flashMessageDuration }
+      );
+      expect(router.navigate).not.toHaveBeenCalled();
+    }));
+  });
+
+  describe('addWorkoutExercise()', () => {
+    it('should add a workout exercise', () => {
+      const exercise = emptyExerciseObject();
+      spyOn(workoutExerciseService, 'createWorkoutExercise').and.returnValue(Rx.Observable.of(null));
+
+      component.addWorkoutExercise(exercise);
+
+      expect(workoutExerciseService.createWorkoutExercise).toHaveBeenCalled();
+    });
   });
 });

@@ -29,4 +29,12 @@ export class StubWorkoutService extends WorkoutService {
     workout.date = '2018-04-23T20:03:04.868Z';
     return Rx.Observable.of(workout);
   }
+
+  createWorkout(formData) {
+    return Rx.Observable.of('workoutIdValue');
+  }
+
+  updateWorkout(formData) {
+    return Rx.Observable.of(formData);
+  }
 }

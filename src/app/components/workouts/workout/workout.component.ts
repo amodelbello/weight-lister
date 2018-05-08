@@ -72,7 +72,6 @@ export class WorkoutComponent implements OnInit {
     data.isActive = true;
     const addObservable = this.workoutService.createWorkout(data).subscribe(workoutId => {
       this.flashMessage.show('Workout Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
-      addObservable.unsubscribe();
 
       this.router.navigate(['/workouts/edit/' + workoutId]);
     });
@@ -81,7 +80,6 @@ export class WorkoutComponent implements OnInit {
   private formSubmitEdit(data) {
     const editObservable = this.workoutService.updateWorkout(data).subscribe(data => {
       this.flashMessage.show('Workout Saved', { cssClass: 'alert-info', timeout: environment.flashMessageDuration });
-      editObservable.unsubscribe();
     });
   }
 
@@ -98,7 +96,6 @@ export class WorkoutComponent implements OnInit {
     const removeObservable = this.workoutService.updateWorkout(data).subscribe(data => {
       this.closeButtonDelete.nativeElement.click();
       this.flashMessage.show('Workout Removed', { cssClass: 'alert-warning', timeout: environment.flashMessageDuration });
-      removeObservable.unsubscribe();
 
       this.router.navigate(['/workouts']);
     });
