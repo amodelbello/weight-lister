@@ -12,8 +12,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NumberToArrayPipe implements PipeTransform {
 
-  transform(value: number, args?: any): Array<number> {
-    return Array.from(Array(value),(x,i)=>i + 1)
+  transform(value): Array<number> {
+    if (isNaN(value) || typeof value === typeof true) {
+      return [];
+    } else {
+      value = Math.abs(value);
+      return Array.from(Array(value),(x,i)=>i + 1)
+    }
   }
 
 }
