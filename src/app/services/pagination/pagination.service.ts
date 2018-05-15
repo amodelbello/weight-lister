@@ -10,6 +10,7 @@ export class PaginationService {
     return Math.ceil((configObject.allItems.length / configObject.pageItemLimit));
   }
 
+  // TODO: Consider renaming this method to getPageItems?
   getPage(configObject: any): Array<any> {
 
     const start: number = configObject.currentPage === 1 ? 0 : ((configObject.currentPage -1) * configObject.pageItemLimit);
