@@ -33,6 +33,42 @@ describe('PaginationService', () => {
       result = service.getNumberOfPages(configObject);
       expect(result).toBe(3);
     }));
+
+    it('should return zero when configObject is undefined', inject([PaginationService], (service: PaginationService) => {
+
+      let configObject = undefined;
+
+      let result;
+      result = service.getNumberOfPages(configObject);
+      expect(result).toBe(0);
+    }));
+
+    it('should return zero when configObject is empty', inject([PaginationService], (service: PaginationService) => {
+
+      let configObject = {};
+
+      let result;
+      result = service.getNumberOfPages(configObject);
+      expect(result).toBe(0);
+    }));
+
+    it('should return zero when given invalid input', inject([PaginationService], (service: PaginationService) => {
+
+      let configObject = {
+        allItems: undefined,
+        pageItemLimit: 10,
+      }
+      let result;
+      result = service.getNumberOfPages(configObject);
+      expect(result).toBe(0);
+
+      configObject = {
+        allItems: Array(9),
+        pageItemLimit: 0,
+      }
+      result = service.getNumberOfPages(configObject);
+      expect(result).toBe(0);
+    }));
   });
 
   describe('getPage()', () => {

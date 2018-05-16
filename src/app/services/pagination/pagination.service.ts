@@ -7,6 +7,19 @@ export class PaginationService {
   constructor() { }
 
   getNumberOfPages(configObject: any): number {
+
+    if (
+      configObject === undefined ||
+      !configObject.hasOwnProperty('allItems') || 
+      configObject.allItems === undefined ||
+      !configObject.allItems.hasOwnProperty('length') ||
+      configObject.pageItemLimit === undefined || 
+      isNaN(configObject.pageItemLimit) ||
+      configObject.pageItemLimit === 0
+    ) {
+      return 0;
+    }
+
     return Math.ceil((configObject.allItems.length / configObject.pageItemLimit));
   }
 
