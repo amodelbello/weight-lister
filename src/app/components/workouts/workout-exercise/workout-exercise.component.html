@@ -39,7 +39,7 @@
           *ngFor="let set of workoutExercise.sets; let i = index" 
           [set]="set" 
           [index]="i"
-          (saveEvent)="save()"
+          (saveEvent)="editSet()"
           (deleteEvent)="deleteSet($event)"
         >
       </table>

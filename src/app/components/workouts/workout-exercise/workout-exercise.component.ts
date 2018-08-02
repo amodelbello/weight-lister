@@ -51,13 +51,19 @@ export class WorkoutExerciseComponent implements OnInit {
     });
   }
 
-  save() {
+  editSet() {
+    this.save(true);
+  }
+
+  save(isEdit?) {
     this.workoutExerciseService.updateWorkoutExercise(this.workoutExercise)
     .subscribe(() => {
-      const index = (this.workoutExercise.sets.length - 1);
-      this.exercise.previous = this.workoutExercise.sets[index];
-      this.exerciseService.updateExercise(this.exercise).subscribe(() => {
-      });
+      if (isEdit) {
+        const index = (this.workoutExercise.sets.length - 1);
+        this.exercise.previous = this.workoutExercise.sets[index];
+        this.exerciseService.updateExercise(this.exercise).subscribe(() => {
+        });
+      }
     });
   }
 }
