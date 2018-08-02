@@ -8,6 +8,8 @@
         <dd>{{ workoutExercise.exercise.muscleGroup }}</dd>
         <dt class="text-secondary">Type:</dt>
         <dd>{{ workoutExercise.exercise.type }}</dd>
+        <dt class="text-secondary">Previous:</dt>
+        <dd>W: {{ workoutExercise.exercise.previous?.weight || '--' }}, R: {{ workoutExercise.exercise.previous?.reps || '--' }}</dd>
       </dl>
       <div>
         <button 

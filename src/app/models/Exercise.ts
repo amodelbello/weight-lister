@@ -5,6 +5,10 @@ export interface Exercise {
   type: string;
   isActive: boolean;
   date?: string;
+  previous?: {
+    reps: number,
+    weight: number,
+  };
 }
 
 export function emptyExerciseObject(): Exercise {
