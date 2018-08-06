@@ -59,11 +59,18 @@ export class WorkoutExerciseComponent implements OnInit {
     this.workoutExerciseService.updateWorkoutExercise(this.workoutExercise)
     .subscribe(() => {
       if (isEdit) {
-        const index = (this.workoutExercise.sets.length - 1);
-        this.exercise.previous = this.workoutExercise.sets[index];
+        this.exercise.previous = this.getSetByMostReps(this.workoutExercise.sets);
         this.exerciseService.updateExercise(this.exercise).subscribe(() => {
         });
       }
     });
+  }
+
+  private getSetByMostReps(sets) {
+    const sorted = sets.sort((a, b) => {
+      return parseInt(b.reps) - parseInt(a.reps);
+    });
+
+    return sorted[0];
   }
 }
