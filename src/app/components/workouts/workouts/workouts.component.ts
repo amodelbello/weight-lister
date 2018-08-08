@@ -83,7 +83,7 @@ export class WorkoutsComponent implements OnInit {
     if (limit != null && limit != '') {
       // return parseInt(limit);
     }
-    return 10;
+    return 20;
   }
 
   changeSort(field) {
