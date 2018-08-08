@@ -79,7 +79,7 @@ export class WorkoutsComponent implements OnInit {
   private getPageLimit() {
     const limit = null;
 
-    // TODO: This doesn't look right. limit is always null
+    // TODO: Make page limit configurable
     if (limit != null && limit != '') {
       // return parseInt(limit);
     }
