@@ -137,7 +137,7 @@ export class WorkoutComponent implements OnInit {
 
     this.workoutExerciseService.createWorkoutExercise(workoutExercise)
     .subscribe(() => {
-      this.closeButtonAdd.nativeElement.click();
+      // this.closeButtonAdd.nativeElement.click();
     })
   }
 }
